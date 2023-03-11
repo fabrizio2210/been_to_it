@@ -1,0 +1,12 @@
+aniso8601==8.0.0
+asyncio==3.4.3
+Click==7.0
+Flask==1.1.1
+Flask-RESTful==0.3.7
+Flask-Cors
+itsdangerous==1.1.0
+MarkupSafe==1.1.1
+pytz==2019.3
+Werkzeug==2.0.3
+uWSGI==2.0.18
+redis
