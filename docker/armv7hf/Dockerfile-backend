@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y nginx \
     && apt-get clean
 
 
-COPY src/ ${APP_FOLDER}/
+COPY src/py/ ${APP_FOLDER}/
 RUN mkdir ${ETC_FOLDER} && chmod 755 ${ETC_FOLDER} && chown www-data ${ETC_FOLDER}
 RUN mkdir ${SOCKET_FOLDER} && chmod 755 ${SOCKET_FOLDER} && chown www-data ${SOCKET_FOLDER}
 RUN mkdir ${STATIC_FILES_PATH} && chmod 755 ${STATIC_FILES_PATH} && chown www-data ${STATIC_FILES_PATH}
