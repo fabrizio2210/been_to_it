@@ -12,22 +12,6 @@ import SupportIcon from "./icons/IconSupport.vue";
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>Dove</template>
-    {{ where_text }}
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>Quando</template>
-    {{ date_text }}
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <EcosystemIcon />
-    </template>
     <template #heading>Confermi la tua presenza?</template>
     Sì, No
   </WelcomeItem>
@@ -47,13 +31,20 @@ import SupportIcon from "./icons/IconSupport.vue";
     <template #heading>Vuoi partecipare all'addio nubilato/celibato?</template>
     {{ party_text }}
   </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      <CommunityIcon />
+    </template>
+    <template #heading>Note</template>
+    {{ note_text }}
+  </WelcomeItem>
 </template>
 <script>
 export default {
   data() {
     return {
-      date_text: "venerdì 22 settembre",
-      where_text: "Pinzoner Keller",
+      note_text: "Vuoi farci sapere qualcosa?",
       party_text: "Contatta il testimone",
     };
   },

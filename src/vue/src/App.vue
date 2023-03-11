@@ -7,8 +7,8 @@ import Hello from "./components/Hello.vue";
   <div>
     <Hello title="Matrimonio Fabrizio & Ervisa" :msg="message" />
     <nav>
-      <RouterLink to="/">Dettagli</RouterLink>
-      <RouterLink to="/guests">Vedi invitati</RouterLink>
+      <RouterLink to="/">Tu</RouterLink>
+      <RouterLink to="/guests">Vedi altri invitati</RouterLink>
     </nav>
     <RouterView />
   </div>
