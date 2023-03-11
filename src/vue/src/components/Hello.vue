@@ -18,16 +18,14 @@ defineProps({
       src="@/assets/invito_settembre_bg.jpg"
       alt="background image"
     />
-    <p id="par1" style="top: 52%; left: 54%" class="ft16">
-      Dalle&nbsp;11.00&nbsp;alle&nbsp;11.30<br />
-      &nbsp;Palazzo&nbsp;Geremia,&nbsp;<br />
-      via&nbsp;Belenzani&nbsp;20,&nbsp;Trento&nbsp;
+    <p id="par1" style="top: 52%; left: 50%" class="ft16">
+      22&nbsp;settembre&nbsp;dalle&nbsp;15.00&nbsp;<br />
+      &nbsp;Pinzonerkeller&nbsp;<br />
+      P.za&nbsp;S.&nbsp;Stefano&nbsp;Montagna&nbsp;(BZ)&nbsp;
     </p>
-    <p id="par2" style="top: 66%; left: 58%" class="ft11">
-      Seguirà&nbsp;un&nbsp;breve&nbsp;aperitivo&nbsp;<br />
-      in&nbsp;città&nbsp;per&nbsp;poi&nbsp;spostarci&nbsp;<br />
-      sul&nbsp;monte&nbsp;di&nbsp;Mezzocorona&nbsp;<br />
-      alla&nbsp;baita&nbsp;del&nbsp;Ciano
+    <p id="par2" style="top: 66%; left: 64%" class="ft11">
+      Seguirà&nbsp;cena&nbsp;in&nbsp;loco&nbsp;<br />
+      fino&nbsp;a&nbsp;tarda&nbsp;sera
     </p>
     <p id="par3" style="top: 79.5%; left: 58.5%" class="ft11">
       Per&nbsp;favore,&nbsp;conferma&nbsp;la&nbsp;tua<br />
