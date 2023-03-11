@@ -12,50 +12,61 @@ defineProps({
 </script>
 
 <template>
-  <div id="page1-div" style="position: relative; width: 1080px; height: 1511px">
+  <div id="invito">
     <img
-      width="1080"
-      height="1511"
+      width="100%"
       src="@/assets/invito_bg.jpg"
       alt="background image"
     />
-    <p style="position: absolute; top: 1212px; left: 628px" class="ft11">
-      Per&nbsp;favore,&nbsp;conferma&nbsp;la&nbsp;tua<br />
-      presenza&nbsp;tramite&nbsp;telefono<br />
-      3471226481&nbsp;o&nbsp;mail<br />
-      fabrizio2210@gmail.com<br />
+    <p id="par1" style="top: 52%; left: 54%" class="ft16">
+      Dalle&nbsp;11.00&nbsp;alle&nbsp;11.30<br />
+      &nbsp;Palazzo&nbsp;Geremia,&nbsp;<br />
+      via&nbsp;Belenzani&nbsp;20,&nbsp;Trento&nbsp;
     </p>
-    <p style="position: absolute; top: 1002px; left: 624px" class="ft11">
+    <p id="par2" style="top: 66%; left: 58%" class="ft11">
       Seguirà&nbsp;un&nbsp;breve&nbsp;aperitivo&nbsp;<br />
       in&nbsp;città&nbsp;per&nbsp;poi&nbsp;spostarci&nbsp;<br />
       sul&nbsp;monte&nbsp;di&nbsp;Mezzocorona&nbsp;<br />
       alla&nbsp;baita&nbsp;del&nbsp;Ciano
     </p>
-    <p style="position: absolute; top: 814px; left: 587px" class="ft16">
-      <b
-        >Dalle&nbsp;11.00&nbsp;alle&nbsp;11.30<br />
-        &nbsp;Palazzo&nbsp;Geremia,&nbsp;<br />
-        via&nbsp;Belenzani&nbsp;20,&nbsp;Trento&nbsp;</b
-      >
+    <p id="par3" style="top: 80%; left: 58.5%" class="ft11">
+      Per&nbsp;favore,&nbsp;conferma&nbsp;la&nbsp;tua<br />
+      presenza&nbsp;tramite&nbsp;telefono<br />
+      3471226481&nbsp;o&nbsp;mail<br />
+      fabrizio2210@gmail.com<br />
     </p>
   </div>
 </template>
 
 <style scoped>
+
+
+@font-face {
+  font-family: "glacial-indifference-regular";
+  src: local("glacial-indifference-regular"),   url(@/assets/GlacialIndifference-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "glacial-indifference-bold";
+  src: local("glacial-indifference-regular"),   url(@/assets/GlacialIndifference-Bold.ttf) format("truetype");
+}
+
+#invito {
+  position: relative;
+  width:100%;
+}
 p {
-  margin: 0; padding: 0; text-align: center; white-space:nowrap
+  margin: 0; padding: 0; text-align: center; white-space:nowrap; position: absolute; line-height: 1.15;
 }
 .ft11 {
-  font-size:30px;font-family:BAAAAA+GlacialIndifference;color:#000000;
+  font-size:30px;font-family:glacial-indifference-regular;color:#000000;
 }
 .ft16 {
-  font-size:34px;font-family:AAAAAA+GlacialIndifference;color:#000000;
+  font-size:34px;font-family:glacial-indifference-bold;color:#000000;
 }
 
 @media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+  #invito {
+    width: 1024px;
   }
 }
 </style>
