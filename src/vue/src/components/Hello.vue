@@ -26,12 +26,27 @@ defineProps({
       src="@/assets/invito_settembre_bg.jpg"
       alt="background image"
     />
-    <p v-if="evento" id="par1" style="top: 52%; left: 50%" class="ft16"
-     v-html="evento.descrizione_par1"/>
-    <p v-if="evento" d="par2" style="top: 66%; left: 64%" class="ft11"
-    v-html="evento.descrizione_par2"/>
-    <p v-if="evento" d="par3" style="top: 79.5%; left: 58.5%" class="ft11"
-    v-html="evento.descrizione_par3"/>
+    <p
+      v-if="evento"
+      id="par1"
+      style="top: 52%; left: 50%"
+      class="ft16"
+      v-html="evento.descrizione_par1"
+    />
+    <p
+      v-if="evento"
+      d="par2"
+      style="top: 66%; left: 64%"
+      class="ft11"
+      v-html="evento.descrizione_par2"
+    />
+    <p
+      v-if="evento"
+      d="par3"
+      style="top: 79.5%; left: 58.5%"
+      class="ft11"
+      v-html="evento.descrizione_par3"
+    />
   </div>
 </template>
 

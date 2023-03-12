@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 const apiUrl = window.location.origin;
 
 export const useEventStore = defineStore({
-  id: 'event',
+  id: "event",
   state: () => ({
     evento: {},
     loading: false,
-    error: false
+    error: false,
   }),
   actions: {
     async fetchEvent() {
@@ -16,12 +16,12 @@ export const useEventStore = defineStore({
         var payload = await fetch(`${apiUrl}/api/event`).then((response) =>
           response.json()
         );
-        this.evento = payload['event']
+        this.evento = payload["event"];
       } catch (error) {
         this.error = error;
       } finally {
         this.loading = false;
       }
-    }
-  }
+    },
+  },
 });
