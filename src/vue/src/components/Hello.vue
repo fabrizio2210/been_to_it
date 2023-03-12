@@ -5,7 +5,7 @@ import { useEventStore } from "../stores/event";
 const { evento, loading, error } = storeToRefs(useEventStore());
 const { fetchEvent } = useEventStore();
 
-fetchEvent();
+fetchEvent()
 
 </script>
 
