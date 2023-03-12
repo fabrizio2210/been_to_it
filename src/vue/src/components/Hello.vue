@@ -7,16 +7,6 @@ const { fetchEvent } = useEventStore();
 
 fetchEvent();
 
-defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  msg: {
-    type: String,
-    required: true,
-  },
-});
 </script>
 
 <template>

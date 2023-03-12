@@ -1,11 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Hello from "./components/Hello.vue";
+import CredentialManager from "./components/CredentialManager.vue";
 </script>
 
 <template>
   <div>
-    <Hello title="Matrimonio Fabrizio & Ervisa" :msg="message" />
+    <CredentialManager />
+    <Hello />
     <nav>
       <RouterLink to="/">Tu</RouterLink>
       <RouterLink to="/guests">Vedi altri invitati</RouterLink>
