@@ -20,8 +20,8 @@ class RedisWrapper():
   def read(cls, cell):
     logging.debug('Reading (%s,%d) from Redis'% cell)
     # check cache TTL
-    if time.now() - cls.client.get('last_sync_read') > 60:
-      Sheet.read_sync()
+    #if time.now() - cls.client.get('last_sync_read') > 60:
+    #  Sheet.read_sync()
     # read from redis if available
     # otherwise read from sheet all the data (not just the cell)
     # update cache TTL
@@ -39,8 +39,8 @@ class RedisModel():
   rows = []
 
   def __init__(self, description_cells, value_cells):
-    value_columns_length = len(RedisModel.expand_cols(value_cells))
-    description_columns_length = len(RedisModel.expand(description_cells))
+    value_columns_length = len(list(RedisModel.expand_cols(value_cells)))
+    description_columns_length = len(list(RedisModel.expand_rows(description_cells)))
     if value_columns_length != description_columns_length:
       logging.error(
         'Columns of description cells (%d) differ from colums of value cells (%d)' %
@@ -57,7 +57,7 @@ class RedisModel():
           RedisWrapper.write((col, row), value)
 
         desc = RedisWrapper.read(
-            (char(ord(description_cells[0][0]) + offset), description_cells[0][1])
+            (chr(ord(description_cells[0][0]) + offset), description_cells[0][1])
           ) 
         setattr(row_obj, desc, property(get_fn, set_fn)) 
         offset += 1

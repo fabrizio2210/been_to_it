@@ -3,17 +3,20 @@ from cache.redis_wrapper import RedisModel
 
 
 class EventModel(RedisModel):
-  description_cell=('A', 1)
-  value_cell=('A', 2)
+  description_cell = ('A', 1)
+  value_cell = ('A', 2)
   
   def __init__(self):
-    super(
-      description_cells=(EventModel.description_cell,)
-      value_cells=(EventModel.value_cell,)
-      )
+    #super().__init__(
+    #  description_cells=(EventModel.description_cell,),
+    #  value_cells=(EventModel.value_cell,)
+    #  )
+    pass
 
   def json(self):
     return {
-        'description': self.rows[0].description,
+        'descrizione_par1': self.descrizione_par1,
+        'descrizione_par2': self.descrizione_par2,
+        'descrizione_par3': self.descrizione_par3,
       }
 

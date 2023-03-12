@@ -1,4 +1,12 @@
 <script setup>
+import { storeToRefs } from "pinia";
+import { useEventStore } from "../stores/event";
+
+const { evento, loading, error } = storeToRefs(useEventStore());
+const { fetchEvent } = useEventStore();
+
+fetchEvent();
+
 defineProps({
   title: {
     type: String,
@@ -14,25 +22,16 @@ defineProps({
 <template>
   <div id="invito">
     <img
-      width="100%"
+      id="bg_img"
       src="@/assets/invito_settembre_bg.jpg"
       alt="background image"
     />
-    <p id="par1" style="top: 52%; left: 50%" class="ft16">
-      22&nbsp;settembre&nbsp;dalle&nbsp;15.00&nbsp;<br />
-      &nbsp;Pinzonerkeller&nbsp;<br />
-      P.za&nbsp;S.&nbsp;Stefano&nbsp;Montagna&nbsp;(BZ)&nbsp;
-    </p>
-    <p id="par2" style="top: 66%; left: 64%" class="ft11">
-      Seguirà&nbsp;cena&nbsp;in&nbsp;loco&nbsp;<br />
-      fino&nbsp;a&nbsp;tarda&nbsp;sera
-    </p>
-    <p id="par3" style="top: 79.5%; left: 58.5%" class="ft11">
-      Per&nbsp;favore,&nbsp;conferma&nbsp;la&nbsp;tua<br />
-      presenza&nbsp;tramite&nbsp;telefono<br />
-      3471226481&nbsp;o&nbsp;mail<br />
-      fabrizio2210@gmail.com<br />
-    </p>
+    <p v-if="evento" id="par1" style="top: 52%; left: 50%" class="ft16"
+     v-html="evento.descrizione_par1"/>
+    <p v-if="evento" d="par2" style="top: 66%; left: 64%" class="ft11"
+    v-html="evento.descrizione_par2"/>
+    <p v-if="evento" d="par3" style="top: 79.5%; left: 58.5%" class="ft11"
+    v-html="evento.descrizione_par3"/>
   </div>
 </template>
 
@@ -48,6 +47,9 @@ defineProps({
     url(@/assets/GlacialIndifference-Bold.ttf) format("truetype");
 }
 
+#bg_img {
+  width: 100%;
+}
 #invito {
   position: relative;
   width: 100%;
