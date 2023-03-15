@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useIdStore = defineStore({
   id: "id",
   state: () => ({
-    id: localStorage.getItem("id")
+    id: localStorage.getItem("id"),
   }),
   actions: {
     setId(id) {
@@ -11,4 +11,4 @@ export const useIdStore = defineStore({
       localStorage.setItem("id", id);
     },
   },
-})
+});
