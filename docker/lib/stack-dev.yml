@@ -83,6 +83,19 @@ services:
     networks:
       - backends
 
+  worker:
+    image: fabrizio2210/been_to_it-worker-dev
+    environment:
+      REDIS_HOST: redis
+      REFRESH_TOKEN: ${REFRESH_TOKEN}
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      SPREADSHEET_ID: ${SPREADSHEET_ID}
+    volumes:
+      - ../../src/go:/usr/src/app
+    networks:
+      - backends
+
 networks:
   backends:
     driver: overlay
