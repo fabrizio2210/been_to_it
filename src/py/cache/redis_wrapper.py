@@ -1,5 +1,6 @@
 import logging
 import inspect
+import time
 from redis import Redis
 
 class RedisWrapper():
@@ -14,8 +15,13 @@ class RedisWrapper():
     cls.client.publish('sse', msg)
 
   @classmethod
-  def write(cls, cell):
-    pass
+  def write(cls, cell, value):
+    logging.debug('Writing (%s,%d) to Redis' % cell)
+    while cls.client.get('write_lock') and cls.client.get('write_lock') == 1:
+      time.sleep(0.1)
+    cls.client.set('%s%d' % cell, value)
+    cls.client.lpush('write_queue', '%s%d' % cell)
+    cls.client.getdel('write_lock')
 
   @classmethod
   def read(cls, cell):
@@ -115,3 +121,4 @@ class RedisModel():
     end_row = cells_range[-1][1]
     for row in range(start_row, int(end_row)+1):
       yield row 
+

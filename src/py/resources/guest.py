@@ -7,10 +7,17 @@ from models.guest import GuestModel
 
 class Guest(Resource):
   parser = reqparse.RequestParser()
-  parser.add_argument('presence',
+  parser.add_argument('viene',
                       type=str,
-                      required=True,
                       help="Presence to the event."
+                      )
+  parser.add_argument('stanza',
+                      type=str,
+                      help="If a room is needed."
+                      )
+  parser.add_argument('note',
+                      type=str,
+                      help="A note about their presence."
                       )
 
   def get(self, id):
@@ -22,25 +29,19 @@ class Guest(Resource):
 
   def put(self, id):
     id = str(id)
-    if os.getenv('BLOCK_UPLOAD', False):
-      return { 'message':
-        os.getenv('BLOCK_UPLOAD_MSG', 'The upload is blocked by admin.')}, 403
-    data = Photo.parser.parse_args()
-    photo = PhotoModel.find_by_id(id)
-    if photo:
-      if photo[0].author_id == data.get('author_id', None):
-        if data.get('description') is not None:
-          photo[0].description = data.get('description')
-        if data.get('author') is not None:
-          photo[0].author = data.get('author')
-        photo[0].save_to_db()
-        # Notify other clients
-        #RedisWrapper.publish('changed ' + str(photo[0].id))
-      else:
-        return {'message': 'Not authorized'}, 403
+    guest = GuestModel.find_by_id(id)
+    data = Guest.parser.parse_args()
+    logging.debug("data=%s", data)
+    if guest:
+      if data.get('viene') is not None:
+        guest.viene = data.get('viene')
+      if data.get('stanza') is not None:
+        guest.stanza = data.get('stanza')
+      if data.get('note') is not None:
+        guest.note = data.get('note')
     else:
       return {'message': 'Item not found.'}, 404
-    return {'photo': FileManager.photo_to_client(photo[0].json())}, 201
+    return {'guest': guest.json()}, 201
 
 class GuestList(Resource):
   parser = reqparse.RequestParser()

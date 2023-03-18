@@ -25,7 +25,7 @@ Retrieve event details
 ### GET
 Retrieve guest details
 
-### POST
+### PUT
 Update guest details
 
 

@@ -8,12 +8,17 @@ import (
     "log"
     "net/http"
     "os"
+    "time"
 
     "github.com/go-redis/redis/v8"
     "golang.org/x/oauth2"
     "golang.org/x/oauth2/google"
     "google.golang.org/api/option"
     "google.golang.org/api/sheets/v4"
+)
+var (
+  spreadsheetId = "1uyKtjMczCQVUfR2ZRwDWW8iKupxp6k1TP_6xQrmiNXA"
+  readRange = "Invitati!A1:K100"
 )
 
 type Token struct {
@@ -41,7 +46,7 @@ type CredStore struct {
 }
 
 var redisClient = redis.NewClient(&redis.Options{
-    Addr: os.Getenv("REDIS_HOST") + ":6379",
+  Addr: os.Getenv("REDIS_HOST") + ":6379",
 })
 
 func createTokenFile() {
@@ -134,29 +139,62 @@ func toChar(i int) string {
     return string('A' + i)
 }
 
-func main() {
-  ctx := context.Background()
-	createCredentialsFile()
-	createTokenFile()
+func writeToSheet(ctx context.Context) {
+  for {
+    cellToWrite, err := redisClient.LPop(ctx, "write_queue").Result()
+    if err != nil {
+      break
+    }
+    fmt.Printf("Read value from queue: %v\n", cellToWrite)
+    valueToWrite, err := redisClient.Get(ctx, cellToWrite).Result()
+    fmt.Printf("Value to write is:%v\n", valueToWrite)
+
+    b, err := os.ReadFile("credentials.json")
+    if err != nil {
+      log.Fatalf("Unable to read client secret file: %v", err)
+    }
+
+    // If modifying these scopes, delete your previously saved token.json.
+    config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets")
+    if err != nil {
+      log.Fatalf("Unable to parse client secret file to config: %v", err)
+    }
+    apiClient := getClient(config)
+
+    srv, err := sheets.NewService(ctx, option.WithHTTPClient(apiClient))
+    if err != nil {
+      log.Fatalf("Unable to retrieve Sheets client: %v", err)
+    }
+
+    var vr sheets.ValueRange
+    myval := []interface{}{valueToWrite}
+    vr.Values = append(vr.Values, myval)
+    _, err = srv.Spreadsheets.Values.Update(spreadsheetId, cellToWrite, &vr).ValueInputOption("RAW").Context(ctx).Do()
+    if err != nil {
+      log.Fatalf("Unable to write data to sheet: %v", err)
+    }
+  }
+}
+
+func readFromSheet(ctx context.Context) {
+  fmt.Println("Reading from Sheet...")
   b, err := os.ReadFile("credentials.json")
   if err != nil {
     log.Fatalf("Unable to read client secret file: %v", err)
   }
 
   // If modifying these scopes, delete your previously saved token.json.
-  config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets")
+  config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets.readonly")
   if err != nil {
     log.Fatalf("Unable to parse client secret file to config: %v", err)
   }
-  client := getClient(config)
+  apiClient := getClient(config)
 
-  srv, err := sheets.NewService(ctx, option.WithHTTPClient(client))
+  srv, err := sheets.NewService(ctx, option.WithHTTPClient(apiClient))
   if err != nil {
     log.Fatalf("Unable to retrieve Sheets client: %v", err)
   }
 
-  spreadsheetId := "1uyKtjMczCQVUfR2ZRwDWW8iKupxp6k1TP_6xQrmiNXA"
-  readRange := "Invitati!A1:K100"
   resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
   if err != nil {
     log.Fatalf("Unable to retrieve data from sheet: %v", err)
@@ -170,6 +208,20 @@ func main() {
         redisClient.Set(ctx, fmt.Sprintf("%s%d", toChar(c), r + 1), value, 0)
       }
     }
+  }
+}
+
+func main() {
+  ctx := context.Background()
+	createCredentialsFile()
+	createTokenFile()
+
+  for {
+    redisClient.Set(ctx, "write_lock", 1, 5 * time.Second)
+    writeToSheet(ctx)
+    readFromSheet(ctx)
+    redisClient.Set(ctx, "write_lock", 0, 0)
+    time.Sleep(20 * time.Second)
   }
 }
 
