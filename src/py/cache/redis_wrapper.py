@@ -33,8 +33,10 @@ class RedisWrapper():
 class RedisRow():
   _fn_dict = {}
 
-  def __init__(self, fn_dict):
+  def __init__(self, fn_dict, attrs):
+    logging.debug("Setting fn_dict:%s", fn_dict)
     self._fn_dict = fn_dict
+    self._attrs = attrs
 
   def __getattr__(self, name: str):
     value = self.__dict__.get(f"{name}", None)
@@ -45,10 +47,19 @@ class RedisRow():
     return value
 
   def __setattr__(self, name, value):
-    if name != '_fn_dict':
-      self.__dict__['_fn_dict'][f"{name}_set"](value)
-    else:
+    if name in ['_fn_dict', '_attrs']:
       self.__dict__[f"{name}"] = value
+    else:
+      self.__dict__['_fn_dict'][f"{name}_set"](value)
+
+  def json(self):
+    json = {}
+    for attr in self._attrs:
+      logging.debug("attr: %s", attr)
+      if attr.startswith('_'):
+        continue
+      json[attr] = getattr(self, attr)
+    return json
 
 
 class RedisModel():
@@ -66,6 +77,7 @@ class RedisModel():
       )
     for row in RedisModel.expand_rows(value_cells):
       fn_dict = {}
+      attrs = []
       offset = 0
       for col in RedisModel.expand_cols(value_cells):
         def get_fn(col=col, row=row):
@@ -80,8 +92,9 @@ class RedisModel():
         logging.debug("Set \"%s\" as attr", desc.lower())
         fn_dict["%s_get" % desc.lower()]=get_fn
         fn_dict["%s_set" % desc.lower()]=set_fn
+        attrs.append(desc.lower())
         offset += 1
-      self.rows.append(RedisRow(fn_dict))
+      self.rows.append(RedisRow(fn_dict, attrs))
 
   def __repr__(self):
     out = "Rows:\n"

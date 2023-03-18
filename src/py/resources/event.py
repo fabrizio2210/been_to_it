@@ -16,14 +16,12 @@ class Event(Resource):
 
   def get(self):
     data = Event.parser.parse_args()
-    event = EventModel()
+    event = EventModel.getEvent()
 
     if data.get('uid', None) in [
      "apre", "arti", "basa", "dava",
      "seri", "ieri", "noci", "melo",
      "nodi", "alti", "lima" ]:
-      logging.debug("Event: %s", event)
-      logging.debug("descrizione_torta: %s", event.rows[0].descrizione_torta_par1)
       event.descrizione_par1 = event.rows[0].descrizione_torta_par1
       event.descrizione_par2 = event.rows[0].descrizione_torta_par2
       event.descrizione_par3 = event.rows[0].descrizione_torta_par3
