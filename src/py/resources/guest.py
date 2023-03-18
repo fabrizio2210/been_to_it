@@ -10,7 +10,6 @@ from models.photo import PhotoModel
 from redis import Redis
 from utility.filemanager import FileManager
 from redis_wrapper import RedisWrapper
-from PIL import Image, ImageOps
 
 
 class Guest(Resource):

@@ -1,43 +1,48 @@
 package main
 
 import (
-        "context"
-        "encoding/json"
-        "fmt"
-	"io/ioutil"
-        "log"
-        "net/http"
-        "os"
+    "context"
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "net/http"
+    "os"
 
-        "golang.org/x/oauth2"
-        "golang.org/x/oauth2/google"
-        "google.golang.org/api/option"
-        "google.golang.org/api/sheets/v4"
+    "github.com/go-redis/redis/v8"
+    "golang.org/x/oauth2"
+    "golang.org/x/oauth2/google"
+    "google.golang.org/api/option"
+    "google.golang.org/api/sheets/v4"
 )
 
 type Token struct {
-	Token string
-	Refresh_Token string
-	Token_Uri string
-	Client_Id string
-	Client_Secret string
-	Scopes []string
-	Expiry string
+    Token string
+    Refresh_Token string
+    Token_Uri string
+    Client_Id string
+    Client_Secret string
+    Scopes []string
+    Expiry string
 }
 
 type Credentials struct {
-	Client_Id string
-	Project_Id string
-	Auth_Uri string
-	Token_Uri string
-	Auth_Provider_X509_Cert_Url string
-	Client_Secret string
-	Redirect_Uris []string
+    Client_Id string
+    Project_Id string
+    Auth_Uri string
+    Token_Uri string
+    Auth_Provider_X509_Cert_Url string
+    Client_Secret string
+    Redirect_Uris []string
 }
 
 type CredStore struct {
 	Installed Credentials
 }
+
+var redisClient = redis.NewClient(&redis.Options{
+    Addr: os.Getenv("REDIS_HOST") + ":6379",
+})
 
 func createTokenFile() {
 	token := Token {
@@ -125,44 +130,46 @@ func saveToken(path string, token *oauth2.Token) {
         json.NewEncoder(f).Encode(token)
 }
 
+func toChar(i int) string {
+    return string('A' + i)
+}
+
 func main() {
-        ctx := context.Background()
+  ctx := context.Background()
 	createCredentialsFile()
 	createTokenFile()
-        b, err := os.ReadFile("credentials.json")
-        if err != nil {
-                log.Fatalf("Unable to read client secret file: %v", err)
-        }
+  b, err := os.ReadFile("credentials.json")
+  if err != nil {
+    log.Fatalf("Unable to read client secret file: %v", err)
+  }
 
-        // If modifying these scopes, delete your previously saved token.json.
-        config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets.readonly")
-        if err != nil {
-                log.Fatalf("Unable to parse client secret file to config: %v", err)
-        }
-        client := getClient(config)
+  // If modifying these scopes, delete your previously saved token.json.
+  config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets")
+  if err != nil {
+    log.Fatalf("Unable to parse client secret file to config: %v", err)
+  }
+  client := getClient(config)
 
-        srv, err := sheets.NewService(ctx, option.WithHTTPClient(client))
-        if err != nil {
-                log.Fatalf("Unable to retrieve Sheets client: %v", err)
-        }
+  srv, err := sheets.NewService(ctx, option.WithHTTPClient(client))
+  if err != nil {
+    log.Fatalf("Unable to retrieve Sheets client: %v", err)
+  }
 
-        // Prints the names and majors of students in a sample spreadsheet:
-        // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-        spreadsheetId := "1uyKtjMczCQVUfR2ZRwDWW8iKupxp6k1TP_6xQrmiNXA"
-        readRange := "Invitati!A1:K100"
-        resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
-        if err != nil {
-                log.Fatalf("Unable to retrieve data from sheet: %v", err)
-        }
+  spreadsheetId := "1uyKtjMczCQVUfR2ZRwDWW8iKupxp6k1TP_6xQrmiNXA"
+  readRange := "Invitati!A1:K100"
+  resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
+  if err != nil {
+    log.Fatalf("Unable to retrieve data from sheet: %v", err)
+  }
 
-        if len(resp.Values) == 0 {
-                fmt.Println("No data found.")
-        } else {
-                fmt.Println("Name, Major:")
-                for _, row := range resp.Values {
-                        // Print columns A and E, which correspond to indices 0 and 4.
-                        fmt.Printf("%s, %s\n", row[0], row[4])
-                }
-        }
+  if len(resp.Values) == 0 {
+    fmt.Println("No data found.")
+  } else {
+    for r, row := range resp.Values {
+      for c, value := range row {
+        redisClient.Set(ctx, fmt.Sprintf("%s%d", toChar(c), r + 1), value, 0)
+      }
+    }
+  }
 }
 
