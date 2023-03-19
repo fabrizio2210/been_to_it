@@ -36,7 +36,7 @@ function post(uid, photo) {
     headers: {
       "Content-Type": "application/json",
     },
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify({
       author: photo.author,
       description: photo.description,
