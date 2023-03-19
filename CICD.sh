@@ -62,3 +62,8 @@ docker build -t fabrizio2210/been_to_it-worker:${arch} -f docker/x86_64/Dockerfi
 docker push fabrizio2210/been_to_it-frontend:${arch}
 docker push fabrizio2210/been_to_it-backend:${arch}
 docker push fabrizio2210/been_to_it-worker:${arch}
+
+#######
+# Clean
+docker container prune --force
+docker image prune --force
