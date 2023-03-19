@@ -16,6 +16,9 @@ fetchGuest();
 </script>
 
 <template>
+  <div>
+    <h2>Ciao {{ guest.nome }}</h2>
+  </div>
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
