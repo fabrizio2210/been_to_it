@@ -205,7 +205,12 @@ func readFromSheet(ctx context.Context) {
     fmt.Println("No data found.")
   } else {
     for r, row := range resp.Values {
-      for c, value := range row {
+      for c :=0 ; c < 100; c++ {
+        var value interface{}
+        value = ""
+        if c < len(row) {
+          value = row[c]
+        }
         redisClient.Set(ctx, fmt.Sprintf("%s%d", toChar(c), r + 1), value, 0)
       }
     }
