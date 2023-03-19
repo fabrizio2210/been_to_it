@@ -1,6 +1,7 @@
 <script setup>
 import WelcomeItem from "./WelcomeItem.vue";
 import Switch from "./Switch.vue";
+import Notes from "./Notes.vue";
 import DocumentationIcon from "./icons/IconDocumentation.vue";
 import ToolingIcon from "./icons/IconTooling.vue";
 import EcosystemIcon from "./icons/IconEcosystem.vue";
@@ -36,7 +37,7 @@ fetchGuest();
     <template #icon>
       <CommunityIcon />
     </template>
-    <template #heading>Hai bisogno di una stanza?</template>
+    <template #heading>In caso fosse disponibile, avresti bisogno di una stanza?</template>
     <Switch
       checkboxId="b"
       v-if="typeof guest.stanza !== 'undefined'"
@@ -59,6 +60,12 @@ fetchGuest();
     </template>
     <template #heading>Note</template>
     {{ note_text }}
+    <Notes 
+      notesId="notes"
+      v-if="typeof guest.note !== 'undefined'"
+      :initialValue="guest.note"
+      @changeText="changeNote($event)"
+    />
   </WelcomeItem>
 </template>
 <script>
@@ -83,13 +90,16 @@ export default {
     },
     changePresence(presence) {
       const { updateGuest } = useGuestStore();
-      console.log("Presente:" + presence);
       updateGuest({ viene: this.boolToIt(presence) });
     },
     changeRoom(room) {
       const { updateGuest } = useGuestStore();
-      console.log("Room:" + room);
       updateGuest({ stanza: this.boolToIt(room) });
+    },
+    changeNote(note) {
+      const { updateGuest } = useGuestStore();
+      console.log(note);
+      updateGuest({ note: note});
     },
   },
 };
