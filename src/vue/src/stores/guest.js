@@ -25,7 +25,6 @@ export const useGuestStore = defineStore({
       }
     },
     async updateGuest(attr) {
-      this.guest = {};
       this.loading = true;
       const id = useIdStore();
       var url = new URL(`/api/guest/${id.id}`, apiUrl);
