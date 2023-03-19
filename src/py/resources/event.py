@@ -16,7 +16,7 @@ class Event(Resource):
 
   def get(self):
     data = Event.parser.parse_args()
-    event = EventModel.getEvent()
+    event = EventModel()
 
     if data.get('uid', None) in [
      "apre", "arti", "basa", "dava",
