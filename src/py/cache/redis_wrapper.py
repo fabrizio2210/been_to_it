@@ -37,7 +37,6 @@ class RedisWrapper():
 
 
 class RedisRow():
-  _fn_dict = {}
 
   def __init__(self, fn_dict, attrs):
     logging.debug("Setting fn_dict:%s", fn_dict)
@@ -69,9 +68,9 @@ class RedisRow():
 
 
 class RedisModel():
-  rows = []
 
   def __init__(self, description_cells, value_cells):
+    self.rows = []
     value_columns_length = len(list(RedisModel.expand_cols(value_cells)))
     description_columns_length = len(
       list(RedisModel.expand_cols(description_cells))
