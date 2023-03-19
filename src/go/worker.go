@@ -8,6 +8,7 @@ import (
     "log"
     "net/http"
     "os"
+    "strconv"
     "time"
 
     "github.com/go-redis/redis/v8"
@@ -215,13 +216,17 @@ func main() {
   ctx := context.Background()
 	createCredentialsFile()
 	createTokenFile()
+  intervall_time, err := strconv.Atoi(os.Getenv("SYNC_INTERVAL_SECONDS"))
+  if err != nil {
+    panic(err)
+  }
 
   for {
     redisClient.Set(ctx, "write_lock", 1, 5 * time.Second)
     writeToSheet(ctx)
     readFromSheet(ctx)
     redisClient.Set(ctx, "write_lock", 0, 0)
-    time.Sleep(20 * time.Second)
+    time.Sleep(time.Duration(intervall_time) * time.Second)
   }
 }
 
