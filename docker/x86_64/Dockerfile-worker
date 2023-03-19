@@ -1,0 +1,9 @@
+FROM golang
+
+WORKDIR /usr/src/app
+
+COPY src/go /usr/src/app
+
+RUN go build
+
+CMD ./Worker

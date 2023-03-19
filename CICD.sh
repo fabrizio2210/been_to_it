@@ -49,6 +49,7 @@ fi
 
 docker build -t fabrizio2210/been_to_it-frontend:${arch} -f docker/x86_64/Dockerfile-frontend .
 docker build -t fabrizio2210/been_to_it-backend:${arch} -f docker/x86_64/Dockerfile-backend .
+docker build -t fabrizio2210/been_to_it-worker:${arch} -f docker/x86_64/Dockerfile-worker .
 
 ######
 # Test
@@ -60,3 +61,4 @@ docker build -t fabrizio2210/been_to_it-backend:${arch} -f docker/x86_64/Dockerf
 
 docker push fabrizio2210/been_to_it-frontend:${arch}
 docker push fabrizio2210/been_to_it-backend:${arch}
+docker push fabrizio2210/been_to_it-worker:${arch}
