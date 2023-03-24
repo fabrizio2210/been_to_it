@@ -37,7 +37,9 @@ fetchGuest();
     <template #icon>
       <CommunityIcon />
     </template>
-    <template #heading>In caso fosse disponibile, avresti bisogno di una stanza?</template>
+    <template #heading
+      >In caso fosse disponibile, avresti bisogno di una stanza?</template
+    >
     <Switch
       checkboxId="b"
       v-if="typeof guest.stanza !== 'undefined'"
@@ -60,7 +62,7 @@ fetchGuest();
     </template>
     <template #heading>Note</template>
     {{ note_text }}
-    <Notes 
+    <Notes
       notesId="notes"
       v-if="typeof guest.note !== 'undefined'"
       :initialValue="guest.note"
@@ -99,7 +101,7 @@ export default {
     changeNote(note) {
       const { updateGuest } = useGuestStore();
       console.log(note);
-      updateGuest({ note: note});
+      updateGuest({ note: note });
     },
   },
 };
