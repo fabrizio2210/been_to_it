@@ -140,14 +140,17 @@ func toChar(i int) string {
     return string('A' + i)
 }
 
+
 func writeToSheet(ctx context.Context) {
-  for {
-    cellToWrite, err := redisClient.LPop(ctx, "write_queue").Result()
-    if err != nil {
-      break
+  iter := redisClient.HScan(ctx, "write_hash", 0, "*", 0).Iterator()
+  for iter.Next(ctx) {
+    cellToWrite := iter.Val()
+    iter.Next(ctx)
+    valueToWrite := iter.Val()
+    if err := iter.Err(); err != nil {
+	    panic(err)
     }
     fmt.Printf("Read value from queue: %v\n", cellToWrite)
-    valueToWrite, err := redisClient.Get(ctx, cellToWrite).Result()
     fmt.Printf("Value to write is:%v\n", valueToWrite)
 
     b, err := os.ReadFile("credentials.json")
@@ -174,6 +177,7 @@ func writeToSheet(ctx context.Context) {
     if err != nil {
       log.Fatalf("Unable to write data to sheet: %v", err)
     }
+    redisClient.HDel(ctx, "write_hash", cellToWrite)
   }
 }
 
@@ -205,7 +209,7 @@ func readFromSheet(ctx context.Context) {
     fmt.Println("No data found.")
   } else {
     for r, row := range resp.Values {
-      for c :=0 ; c < 100; c++ {
+      for c :=0 ; c < 20; c++ {
         var value interface{}
         value = ""
         if c < len(row) {
@@ -227,10 +231,8 @@ func main() {
   }
 
   for {
-    redisClient.Set(ctx, "write_lock", 1, 5 * time.Second)
     writeToSheet(ctx)
     readFromSheet(ctx)
-    redisClient.Set(ctx, "write_lock", 0, 0)
     time.Sleep(time.Duration(intervall_time) * time.Second)
   }
 }

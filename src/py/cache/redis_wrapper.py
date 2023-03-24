@@ -17,11 +17,8 @@ class RedisWrapper():
   @classmethod
   def write(cls, cell, value):
     logging.debug('Writing (%s,%d) to Redis' % cell)
-    while cls.client.get('write_lock') and cls.client.get('write_lock') == 1:
-      time.sleep(0.1)
     cls.client.set('%s%d' % cell, value)
-    cls.client.lpush('write_queue', '%s%d' % cell)
-    cls.client.getdel('write_lock')
+    cls.client.hset('write_hash', key='%s%d' % cell, value=value)
 
   @classmethod
   def read(cls, cell):
