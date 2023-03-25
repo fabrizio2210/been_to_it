@@ -6,6 +6,7 @@ export const useGuestStore = defineStore({
   id: "guest",
   state: () => ({
     guest: {},
+    guests: [],
     loading: false,
     error: false,
   }),
@@ -18,6 +19,19 @@ export const useGuestStore = defineStore({
       try {
         var payload = await fetch(url).then((response) => response.json());
         this.guest = payload["guest"];
+      } catch (error) {
+        this.error = error;
+      } finally {
+        this.loading = false;
+      }
+    },
+    async fetchGuests() {
+      this.guests = [];
+      this.loading = true;
+      var url = new URL(`/api/guests`, apiUrl);
+      try {
+        var payload = await fetch(url).then((response) => response.json());
+        this.guests = payload["guests"];
       } catch (error) {
         this.error = error;
       } finally {

@@ -19,12 +19,14 @@ class Guest(Resource):
                       type=str,
                       help="A note about their presence."
                       )
+  exclude_on_its_own = ['note_interne']
+  include_for_others = ['nome', 'viene']
 
   def get(self, id):
     id = str(id)
     guest = GuestModel.find_by_id(id)
     if guest:
-      return {'guest': guest.json()}, 200
+      return {'guest': guest.json(exclude=Guest.exclude_on_its_own)}, 200
     return {'message': 'Item not found.'}, 404
 
   def put(self, id):
@@ -41,39 +43,12 @@ class Guest(Resource):
         guest.note = data.get('note')
     else:
       return {'message': 'Item not found.'}, 404
-    return {'guest': guest.json()}, 201
+    return {'guest': guest.json(exclude=Guest.exclude_on_its_own)}, 201
 
 class GuestList(Resource):
-  parser = reqparse.RequestParser()
-  parser.add_argument('timestamp',
-                      type=int,
-                      required=False,
-                      help="If timestamp is provided, get latest photos after timestamp."
-                      )
-  parser.add_argument('author_id',
-                      type=str,
-                      required=False,
-                      help="If author_id is provided, get all the photos of that author."
-                      )
   def get(self):
-    data = PhotoList.parser.parse_args()
-    if data.get('author_id', None):
-      return {'photos': list(map(lambda x:
-                             FileManager.photo_to_client(x.json()),
-                             PhotoModel.get_photos_by_author_id(data['author_id'])
-                             ))
-             }
-    if data.get('timestamp', None):
-      return {'photos': list(map(lambda x: 
-                             FileManager.photo_to_client(x.json()),
-                             PhotoModel.find_by_timestamp(data['timestamp'])
-                         ))
-             }
-    logging.debug("In the resources: %s", PhotoModel.get_all_photos())
-    return {'photos': list(map(lambda x: 
-                           FileManager.photo_to_client(x.public_json()),
-                           PhotoModel.get_all_photos()
-                       ))
+    return {'guests': list(map(lambda x: x.json(include=Guest.include_for_others),
+                           GuestModel.get_all_guests()))
            }
 
 

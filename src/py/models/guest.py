@@ -22,3 +22,8 @@ class GuestModel(RedisModel):
     for guest in guests.rows:
       if guest.id == id:
         return guest
+
+  @classmethod
+  def get_all_guests(cls):
+    guests = GuestModel.getGuests()
+    return guests.rows

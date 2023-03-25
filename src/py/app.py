@@ -2,7 +2,7 @@ from flask import Flask, Response
 from flask_restful import Api
 from flask_cors import CORS
 from resources.event import Event
-from resources.guest import Guest #, GuestList
+from resources.guest import Guest, GuestList
 import logging
 import os
 
@@ -19,7 +19,7 @@ api = Api(app)
 
 # API
 api.add_resource(Guest,       '/api/guest/<string:id>')
-#api.add_resource(GuestList,   '/api/guests')
+api.add_resource(GuestList,   '/api/guests')
 api.add_resource(Event,       '/api/event')
 
 # Initialise from envrironment variables

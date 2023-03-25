@@ -1,6 +1,10 @@
+<script setup>
+import Guests from "../components/Guests.vue"
+</script>
+
 <template>
   <div class="guests">
-    <h1>Qui verranno visualizzati tutti gli invitati</h1>
+    <Guests />
   </div>
 </template>
 
@@ -9,7 +13,7 @@
   .guests {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-flow: column;
   }
 }
 </style>

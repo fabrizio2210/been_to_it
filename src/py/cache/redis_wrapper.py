@@ -76,11 +76,15 @@ class RedisRow():
     else:
       self.__dict__['_fn_dict'][f"{name}_set"](value)
 
-  def json(self):
+  def json(self, exclude=[], include=None):
     json = {}
     for attr in self._attrs:
       logging.debug("attr: %s", attr)
       if attr.startswith('_'):
+        continue
+      if attr in exclude:
+        continue
+      if include is not None and attr not in include:
         continue
       json[attr] = getattr(self, attr)
     return json
