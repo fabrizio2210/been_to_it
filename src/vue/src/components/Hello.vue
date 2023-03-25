@@ -72,7 +72,7 @@ p {
   color: #000000;
 }
 .ft16 {
-  font-size: 11px;
+  font-size: 10px;
   font-family: glacial-indifference-bold;
   color: #000000;
 }
@@ -82,7 +82,7 @@ p {
     font-size: 9.5px;
   }
   .ft16 {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 @media (min-width: 400px) {
@@ -90,7 +90,7 @@ p {
     font-size: 10px;
   }
   .ft16 {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 @media (min-width: 500px) {
@@ -98,7 +98,7 @@ p {
     font-size: 12px;
   }
   .ft16 {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 @media (min-width: 595px) {

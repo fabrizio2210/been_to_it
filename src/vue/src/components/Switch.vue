@@ -102,36 +102,33 @@ body {
   transform: translate3d(0, 0, 0);
 }
 .can-toggle input[type="checkbox"][disabled] ~ label {
-  color: rgba(234, 0, 48, 0.5);
+  color: rgba(234, 0, 48, 0.1);
 }
 .can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch,
 .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch {
-  background-color: #ea0030;
+  background-color: #acb1bc; /*#ea0030;*/
 }
 .can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after,
 .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
-  color: #b70026;
+  color: #7b5267; /* #b70026;*/
 }
 .can-toggle input[type="checkbox"]:hover ~ label {
-  color: #d1002b;
+  color: #8c6f87; /*#d1002b;*/
 }
 .can-toggle input[type="checkbox"]:checked ~ label:hover {
   color: #55bc49;
 }
-.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
-  background-color: #70c767;
-}
-.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
-  color: #4fb743;
-}
 .can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch,
-.can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch {
-  background-color: #5fc054;
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #b7ffa8; /*#70c767; box color green */
 }
-.can-toggle
-  input[type="checkbox"]:checked:focus
-  ~ label
-  .can-toggle__switch:after,
+.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after,
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #4fb743; /*color inside */
+}
+.can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch {
+  background-color: #75dcab; /* #5fc054; color green when hoover*/
+}
 .can-toggle
   input[type="checkbox"]:checked:hover
   ~ label
@@ -143,15 +140,15 @@ body {
 }
 .can-toggle label .can-toggle__switch {
   transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
-  background: #ff0538;
+  background: #acb1bc; /* #ff0538;*/
 }
 .can-toggle label .can-toggle__switch:before {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.1);
 }
 .can-toggle label .can-toggle__switch:after {
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
   transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-  color: #ea0030;
+  color: #7b5267; /*#ea0030;*/
 }
 .can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after,
 .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
