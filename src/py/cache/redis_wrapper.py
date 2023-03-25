@@ -1,7 +1,12 @@
-import logging
 import inspect
+import logging
+import os
 import time
 from redis import Redis
+
+def slowdown():
+  if os.getenv('ENVIRONMENT', None) == 'DEV':
+    time.sleep(0.005)
 
 class RedisWrapper():
   client = None
@@ -18,14 +23,18 @@ class RedisWrapper():
   def write(cls, cell, value):
     logging.debug('Writing (%s,%d) to Redis' % cell)
     cls.client.set('%s%d' % cell, value)
+    slowdown()
     cls.client.hset('write_hash', key='%s%d' % cell, value=value)
+    slowdown()
 
   @classmethod
   def read(cls, cell):
     logging.debug('Reading (%s,%d) from Redis' % cell)
     value = cls.client.hget('write_hash', key='%s%d' % cell)
+    slowdown()
     if value is None:
       value = cls.client.get('%s%d' % cell)
+      slowdown()
     else:
       logging.debug('Value "%s" read from write_hash.', value)
     if value is not None:

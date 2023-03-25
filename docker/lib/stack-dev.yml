@@ -69,10 +69,7 @@ services:
       traefik.http.routers.backend.rule: "PathPrefix(`/api`)"
     environment:
       REDIS_URL: redis://redis
-      REFRESH_TOKEN: ${REFRESH_TOKEN}
-      CLIENT_ID: ${CLIENT_ID}
-      CLIENT_SECRET: ${CLIENT_SECRET}
-      SPREADSHEET_ID: ${SPREADSHEET_ID}
+      ENVIRONMENT: DEV
     volumes:
       - ../../src/py:/opt/web
     networks: 
