@@ -21,81 +21,83 @@ fetchGuest();
 </script>
 
 <template>
-  <div>
-    <h2>Ciao {{ guest.nome }}</h2>
-  </div>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>Confermi la tua presenza?</template>
-    <Switch
-      checkboxId="a"
-      v-if="typeof guest.viene !== 'undefined'"
-      :initialValue="guest.viene"
-      @changeCheck="changePresence($event)"
-    />
-  </WelcomeItem>
+  <template v-if="typeof guest !== 'undefined' && Object.keys(guest) != 0">
+    <div>
+      <h2>Ciao {{ guest.nome }}</h2>
+    </div>
+    <WelcomeItem>
+      <template #icon>
+        <DocumentationIcon />
+      </template>
+      <template #heading>Confermi la tua presenza?</template>
+      <Switch
+        checkboxId="a"
+        v-if="typeof guest.viene !== 'undefined'"
+        :initialValue="guest.viene"
+        @changeCheck="changePresence($event)"
+      />
+    </WelcomeItem>
 
-  <div
-    class="optional-section"
-    v-if="typeof guest.viene !== 'undefined' && itToBool(guest.viene)"
-  >
+    <div
+      class="optional-section"
+      v-if="typeof guest.viene !== 'undefined' && itToBool(guest.viene)"
+    >
+      <WelcomeItem>
+        <template #icon>
+          <CommunityIcon />
+        </template>
+        <template #heading
+          >In caso fosse disponibile, avresti bisogno di una stanza?</template
+        >
+        <Switch
+          checkboxId="b"
+          v-if="typeof guest.stanza !== 'undefined'"
+          :initialValue="guest.stanza"
+          @changeCheck="changeRoom($event)"
+        />
+      </WelcomeItem>
+
+      <WelcomeItem v-if="evento !== null && typeof evento.addio !== 'undefined'">
+        <template #icon>
+          <SupportIcon />
+        </template>
+        <template #heading
+          >Vuoi partecipare all'addio nubilato/celibato?</template
+        >
+        {{ evento.addio }}
+      </WelcomeItem>
+
+      <WelcomeItem>
+        <template #icon>
+          <DressIcon />
+        </template>
+        <template #heading>Dress code</template>
+        Chiedi ad Ervisa.
+      </WelcomeItem>
+
+      <WelcomeItem v-if="evento !== null && typeof evento.regalo !== 'undefined'">
+        <template #icon>
+          <GiftIcon />
+        </template>
+        <template #heading>Regalo</template>
+        {{ evento.regalo }}
+      </WelcomeItem>
+    </div>
+
     <WelcomeItem>
       <template #icon>
         <CommunityIcon />
       </template>
-      <template #heading
-        >In caso fosse disponibile, avresti bisogno di una stanza?</template
-      >
-      <Switch
-        checkboxId="b"
-        v-if="typeof guest.stanza !== 'undefined'"
-        :initialValue="guest.stanza"
-        @changeCheck="changeRoom($event)"
+      <template #heading>Note</template>
+      {{ note_text }}
+      <Notes
+        notesId="notes"
+        v-if="typeof guest.note !== 'undefined'"
+        :initialValue="guest.note"
+        @changeText="changeNote($event)"
       />
     </WelcomeItem>
-
-    <WelcomeItem v-if="evento !== null && typeof evento.addio !== 'undefined'">
-      <template #icon>
-        <SupportIcon />
-      </template>
-      <template #heading
-        >Vuoi partecipare all'addio nubilato/celibato?</template
-      >
-      {{ evento.addio }}
-    </WelcomeItem>
-
-    <WelcomeItem>
-      <template #icon>
-        <DressIcon />
-      </template>
-      <template #heading>Dress code</template>
-      Chiedi ad Ervisa.
-    </WelcomeItem>
-
-    <WelcomeItem v-if="evento !== null && typeof evento.regalo !== 'undefined'">
-      <template #icon>
-        <GiftIcon />
-      </template>
-      <template #heading>Regalo</template>
-      {{ evento.regalo }}
-    </WelcomeItem>
-  </div>
-
-  <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
-    <template #heading>Note</template>
-    {{ note_text }}
-    <Notes
-      notesId="notes"
-      v-if="typeof guest.note !== 'undefined'"
-      :initialValue="guest.note"
-      @changeText="changeNote($event)"
-    />
-  </WelcomeItem>
+  </template>
 </template>
 <script>
 export default {
