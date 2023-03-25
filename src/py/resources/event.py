@@ -17,7 +17,7 @@ class Event(Resource):
 
   def get(self):
     data = Event.parser.parse_args()
-    event = EventModel()
+    event = EventModel.getEvent()
 
     if data.get('uid', None):
       guest = GuestModel.find_by_id(data['uid'])
