@@ -1,5 +1,5 @@
 <script setup>
-import Guests from "../components/Guests.vue"
+import Guests from "../components/Guests.vue";
 </script>
 
 <template>

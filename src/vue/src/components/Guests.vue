@@ -11,14 +11,10 @@ fetchGuests();
 
 <template>
   <template v-for="guest in guests">
-
-    <GuestItem
-      v-if="typeof guest.nome !== 'undefined' && guest.nome != ''"
-      >
+    <GuestItem v-if="typeof guest.nome !== 'undefined' && guest.nome != ''">
       <template #heading>{{ guest.nome }}</template>
       {{ guest.viene }}
     </GuestItem>
-
   </template>
 </template>
 <script>

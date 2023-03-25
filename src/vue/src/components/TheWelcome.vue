@@ -57,7 +57,9 @@ fetchGuest();
         />
       </WelcomeItem>
 
-      <WelcomeItem v-if="evento !== null && typeof evento.addio !== 'undefined'">
+      <WelcomeItem
+        v-if="evento !== null && typeof evento.addio !== 'undefined'"
+      >
         <template #icon>
           <SupportIcon />
         </template>
@@ -75,7 +77,9 @@ fetchGuest();
         Chiedi ad Ervisa.
       </WelcomeItem>
 
-      <WelcomeItem v-if="evento !== null && typeof evento.regalo !== 'undefined'">
+      <WelcomeItem
+        v-if="evento !== null && typeof evento.regalo !== 'undefined'"
+      >
         <template #icon>
           <GiftIcon />
         </template>
