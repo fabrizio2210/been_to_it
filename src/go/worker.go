@@ -98,7 +98,7 @@ func getClient(config *oauth2.Config) *http.Client {
 // Request a token from the web, then returns the retrieved token.
 func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
         authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
-        fmt.Printf("Go to the following link in your browser then type the "+
+        log.Printf("Go to the following link in your browser then type the "+
                 "authorization code: \n%v\n", authURL)
 
         var authCode string
@@ -127,7 +127,7 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 
 // Saves a token to a file path.
 func saveToken(path string, token *oauth2.Token) {
-        fmt.Printf("Saving credential file to: %s\n", path)
+        log.Printf("Saving credential file to: %s\n", path)
         f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
         if err != nil {
                 log.Fatalf("Unable to cache oauth token: %v", err)
@@ -150,8 +150,8 @@ func writeToSheet(ctx context.Context) {
     if err := iter.Err(); err != nil {
 	    panic(err)
     }
-    fmt.Printf("Read value from queue: %v\n", cellToWrite)
-    fmt.Printf("Value to write is:%v\n", valueToWrite)
+    log.Printf("Read value from queue: %v\n", cellToWrite)
+    log.Printf("Value to write is:%v\n", valueToWrite)
 
     b, err := os.ReadFile("credentials.json")
     if err != nil {
@@ -182,7 +182,7 @@ func writeToSheet(ctx context.Context) {
 }
 
 func readFromSheet(ctx context.Context) {
-  fmt.Println("Reading from Sheet...")
+  log.Println("Reading from Sheet...")
   b, err := os.ReadFile("credentials.json")
   if err != nil {
     log.Fatalf("Unable to read client secret file: %v", err)
@@ -206,7 +206,7 @@ func readFromSheet(ctx context.Context) {
   }
 
   if len(resp.Values) == 0 {
-    fmt.Println("No data found.")
+    log.Println("No data found.")
   } else {
     for r, row := range resp.Values {
       for c :=0 ; c < 20; c++ {
