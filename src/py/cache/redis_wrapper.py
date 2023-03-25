@@ -10,6 +10,7 @@ def slowdown():
 
 class RedisWrapper():
   client = None
+  memoization = {}
 
   @classmethod
   def init(cls, url):
@@ -28,7 +29,12 @@ class RedisWrapper():
     slowdown()
 
   @classmethod
-  def read(cls, cell):
+  def read(cls, cell, memoize=False):
+    if memoize:
+      value = cls.memoization.get(cell, None)
+      if value is not None:
+        return value
+
     logging.debug('Reading (%s,%d) from Redis' % cell)
     value = cls.client.hget('write_hash', key='%s%d' % cell)
     slowdown()
@@ -38,7 +44,10 @@ class RedisWrapper():
     else:
       logging.debug('Value "%s" read from write_hash.', value)
     if value is not None:
-      return value.decode('utf-8')
+      value = value.decode('utf-8')
+      if memoize:
+        cls.memoization[cell] = value
+      return value
     return None
 
   @classmethod
@@ -102,9 +111,10 @@ class RedisModel():
           RedisWrapper.write((col, row), value)
 
         desc = RedisWrapper.read(
-            (chr(ord(description_cells[0][0]) + offset), description_cells[0][1])
+            (chr(ord(description_cells[0][0]) + offset), description_cells[0][1]),
+            memoize=True
           ) 
-        logging.debug("Set \"%s\" as attr", desc.lower())
+        logging.debug("Set \"%s\" as attr for \"%s\"", desc.lower(), row)
         fn_dict["%s_get" % desc.lower()]=get_fn
         fn_dict["%s_set" % desc.lower()]=set_fn
         attrs.append(desc.lower())
@@ -130,4 +140,5 @@ class RedisModel():
     end_row = cells_range[-1][1]
     for row in range(start_row, int(end_row)+1):
       yield row 
+
 
