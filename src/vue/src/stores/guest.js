@@ -12,7 +12,6 @@ export const useGuestStore = defineStore({
   }),
   actions: {
     async fetchGuest() {
-      this.guest = {};
       this.loading = true;
       const id = useIdStore();
       var url = new URL(`/api/guest/${id.id}`, apiUrl);
@@ -26,7 +25,6 @@ export const useGuestStore = defineStore({
       }
     },
     async fetchGuests() {
-      this.guests = [];
       this.loading = true;
       var url = new URL(`/api/guests`, apiUrl);
       try {
