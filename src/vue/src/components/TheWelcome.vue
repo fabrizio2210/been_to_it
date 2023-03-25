@@ -37,7 +37,10 @@ fetchGuest();
     />
   </WelcomeItem>
 
-  <div class="optional-section" v-if="typeof guest.viene !== 'undefined' && itToBool(guest.viene)">
+  <div
+    class="optional-section"
+    v-if="typeof guest.viene !== 'undefined' && itToBool(guest.viene)"
+  >
     <WelcomeItem>
       <template #icon>
         <CommunityIcon />
@@ -53,15 +56,17 @@ fetchGuest();
       />
     </WelcomeItem>
 
-    <WelcomeItem v-if="evento !== null  && typeof evento.addio !== 'undefined'">
+    <WelcomeItem v-if="evento !== null && typeof evento.addio !== 'undefined'">
       <template #icon>
         <SupportIcon />
       </template>
-      <template #heading>Vuoi partecipare all'addio nubilato/celibato?</template>
+      <template #heading
+        >Vuoi partecipare all'addio nubilato/celibato?</template
+      >
       {{ evento.addio }}
     </WelcomeItem>
 
-    <WelcomeItem >
+    <WelcomeItem>
       <template #icon>
         <DressIcon />
       </template>
@@ -69,7 +74,7 @@ fetchGuest();
       Chiedi ad Ervisa.
     </WelcomeItem>
 
-    <WelcomeItem v-if="evento !== null  && typeof evento.regalo !== 'undefined'">
+    <WelcomeItem v-if="evento !== null && typeof evento.regalo !== 'undefined'">
       <template #icon>
         <GiftIcon />
       </template>
@@ -113,7 +118,7 @@ export default {
       }
     },
     itToBool(str) {
-      if (str == 'sì' || str == 'si' || str == 'true') {
+      if (str == "sì" || str == "si" || str == "true") {
         return true;
       } else {
         return false;

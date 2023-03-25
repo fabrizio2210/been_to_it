@@ -122,7 +122,10 @@ body {
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
   background-color: #b7ffa8; /*#70c767; box color green */
 }
-.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after,
+.can-toggle
+  input[type="checkbox"]:checked:focus
+  ~ label
+  .can-toggle__switch:after,
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
   color: #4fb743; /*color inside */
 }
