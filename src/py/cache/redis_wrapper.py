@@ -23,7 +23,11 @@ class RedisWrapper():
   @classmethod
   def read(cls, cell):
     logging.debug('Reading (%s,%d) from Redis' % cell)
-    value = cls.client.get('%s%d' % cell)
+    value = cls.client.hget('write_hash', key='%s%d' % cell)
+    if value is None:
+      value = cls.client.get('%s%d' % cell)
+    else:
+      logging.debug('Value "%s" read from write_hash.', value)
     if value is not None:
       return value.decode('utf-8')
     return None
