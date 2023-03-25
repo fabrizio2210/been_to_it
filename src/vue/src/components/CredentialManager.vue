@@ -13,8 +13,10 @@ watch(
   () => route.query.id,
   async (newId) => {
     if (id != newId) {
-      await setId(newId);
-      fetchEvent();
+      if (typeof newId !== 'undefined') {
+        await setId(newId);
+        fetchEvent();
+      }
     }
   }
 );
