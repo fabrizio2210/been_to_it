@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useEventStore } from "../stores/event";
 import { useIdStore } from "../stores/id";
@@ -8,7 +8,6 @@ import { useRoute, useRouter } from "vue-router";
 const { evento, loading, error } = storeToRefs(useEventStore());
 const { setId } = useIdStore();
 const { fetchEvent } = useEventStore();
-
 
 onMounted(async () => {
   const route = useRoute();
@@ -19,7 +18,7 @@ onMounted(async () => {
     setId(route.query.id);
   }
   fetchEvent();
-})
+});
 </script>
 
 <template>

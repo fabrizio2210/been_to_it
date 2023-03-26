@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 import WelcomeItem from "./WelcomeItem.vue";
 import Switch from "./Switch.vue";
 import Notes from "./Notes.vue";
@@ -24,7 +24,7 @@ onMounted(async () => {
   const router = useRouter();
   await router.isReady();
   fetchGuest();
-})
+});
 </script>
 
 <template>
