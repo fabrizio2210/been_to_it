@@ -36,13 +36,17 @@ class RedisWrapper():
         return value
 
     logging.debug('Reading (%s,%d) from Redis' % cell)
-    value = cls.client.hget('write_hash', key='%s%d' % cell)
+    pipe = cls.client.pipeline()
+    pipe.hget('write_hash', key='%s%d' % cell)
+    pipe.get('%s%d' % cell)
+    values = pipe.execute()
     slowdown()
-    if value is None:
-      value = cls.client.get('%s%d' % cell)
-      slowdown()
-    else:
+    if values[0] is not None:
+      value = values[0]
       logging.debug('Value "%s" read from write_hash.', value)
+    else:
+      value = values[1]
+
     if value is not None:
       value = value.decode('utf-8')
       if memoize:
@@ -144,5 +148,4 @@ class RedisModel():
     end_row = cells_range[-1][1]
     for row in range(start_row, int(end_row)+1):
       yield row 
-
 
