@@ -1,12 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Hello from "./components/Hello.vue";
-import CredentialManager from "./components/CredentialManager.vue";
 </script>
 
 <template>
   <div>
-    <CredentialManager />
     <Hello />
     <nav>
       <RouterLink to="/">Tu</RouterLink>

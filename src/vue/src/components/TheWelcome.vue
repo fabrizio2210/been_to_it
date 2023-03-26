@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue';
 import WelcomeItem from "./WelcomeItem.vue";
 import Switch from "./Switch.vue";
 import Notes from "./Notes.vue";
@@ -12,12 +13,18 @@ import DressIcon from "./icons/IconDress.vue";
 import { storeToRefs } from "pinia";
 import { useGuestStore } from "../stores/guest";
 import { useEventStore } from "../stores/event";
+import { useRoute, useRouter } from "vue-router";
 
 const { guest, loading, error } = storeToRefs(useGuestStore());
 const { evento } = storeToRefs(useEventStore());
 const { fetchGuest } = useGuestStore();
 
-fetchGuest();
+onMounted(async () => {
+  const route = useRoute();
+  const router = useRouter();
+  await router.isReady();
+  fetchGuest();
+})
 </script>
 
 <template>
