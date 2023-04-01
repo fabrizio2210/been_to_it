@@ -6,8 +6,21 @@ export const useGuestStore = defineStore({
   id: "guest",
   state: () => ({
     guest: {},
-    guests: [],
+    guests: [
+      {nome: 'Nome, Consorteafa'},
+      {nome: 'Invitato, Sanome'},
+      {nome: 'Invitato, Safsfsdf Dome'},
+      {nome: 'Invitato, Nodddme'},
+      {nome: 'Invitato, Sanome'},
+      {nome: 'Invitato, Nomde'},
+      {nome: 'Invitato, Nodddme'},
+      {nome: 'Invitato, Some'},
+      {nome: 'Invitato, Safsfsdf Dome'},
+      {nome: 'Invitato, Nome'},
+      {nome: 'Invitato, Nome'},
+    ],
     loading: false,
+    firstGuestsLoading: true,
     error: false,
   }),
   actions: {
@@ -35,6 +48,7 @@ export const useGuestStore = defineStore({
         this.error = error;
       } finally {
         this.loading = false;
+        this.firstGuestsLoading = false;
       }
     },
     async updateGuest(attr) {
