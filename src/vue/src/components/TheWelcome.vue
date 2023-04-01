@@ -96,7 +96,7 @@ onMounted(async () => {
           <DressIcon />
         </template>
         <template #heading>Dress code</template>
-        Chiedi ad Ervisa.
+        <div v-html="evento.dresscode"></div>
       </WelcomeItem>
 
       <WelcomeItem
