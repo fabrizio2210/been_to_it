@@ -41,7 +41,7 @@ onMounted(async () => {
         checkboxId="a"
         v-if="typeof guest.viene !== 'undefined'"
         :initialValue="guest.viene"
-        @changeCheck="changePresence($event)"
+        @changeCheck="changeBool('viene', $event)"
       />
     </WelcomeItem>
 
@@ -54,13 +54,13 @@ onMounted(async () => {
           <CommunityIcon />
         </template>
         <template #heading
-          >In caso fosse disponibile, avresti bisogno di una stanza?</template
+          >Hai delle alergie od intolleranze alimentari?</template
         >
         <Switch
           checkboxId="b"
-          v-if="typeof guest.stanza !== 'undefined'"
-          :initialValue="guest.stanza"
-          @changeCheck="changeRoom($event)"
+          v-if="typeof guest.alergie !== 'undefined'"
+          :initialValue="guest.alergie"
+          @changeCheck="changeBool('alergie', $event)"
         />
       </WelcomeItem>
 
@@ -137,13 +137,10 @@ export default {
         return false;
       }
     },
-    changePresence(presence) {
+    changeBool(field, value) {
       const { updateGuest } = useGuestStore();
-      updateGuest({ viene: this.boolToIt(presence) });
-    },
-    changeRoom(room) {
-      const { updateGuest } = useGuestStore();
-      updateGuest({ stanza: this.boolToIt(room) });
+      console.log("field:" + field);
+      updateGuest({ [field]: this.boolToIt(value)});
     },
     changeNote(note) {
       const { updateGuest } = useGuestStore();

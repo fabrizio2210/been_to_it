@@ -15,6 +15,10 @@ class Guest(Resource):
                       type=str,
                       help="If a room is needed."
                       )
+  parser.add_argument('alergie',
+                      type=str,
+                      help="If there are some allergens ."
+                      )
   parser.add_argument('note',
                       type=str,
                       help="A note about their presence."
@@ -39,6 +43,8 @@ class Guest(Resource):
         guest.viene = data.get('viene')
       if data.get('stanza') is not None:
         guest.stanza = data.get('stanza')
+      if data.get('alergie') is not None:
+        guest.alergie = data.get('alergie')
       if data.get('note') is not None:
         guest.note = data.get('note')
     else:
