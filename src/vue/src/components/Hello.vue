@@ -33,6 +33,7 @@ onMounted(async () => {
       id="par1"
       style="top: 52%; left: 50%"
       class="ft16"
+      :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par1"
     />
     <p
@@ -40,6 +41,7 @@ onMounted(async () => {
       d="par2"
       style="top: 66%; left: 64%"
       class="ft11"
+      :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par2"
     />
     <p
@@ -47,6 +49,7 @@ onMounted(async () => {
       d="par3"
       style="top: 79.5%; left: 58.5%"
       class="ft11"
+      :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par3"
     />
   </div>
@@ -62,6 +65,14 @@ onMounted(async () => {
   font-family: "glacial-indifference-bold";
   src: local("glacial-indifference-regular"),
     url(@/assets/GlacialIndifference-Bold.ttf) format("truetype");
+}
+
+.blur {
+  filter: blur(9px);
+}
+
+.noblur {
+  filter: blur(0px);
 }
 
 #bg_img {
@@ -83,11 +94,13 @@ p {
   font-size: 9px;
   font-family: glacial-indifference-regular;
   color: #000000;
+  transition: filter 0.5s;
 }
 .ft16 {
   font-size: 10px;
   font-family: glacial-indifference-bold;
   color: #000000;
+  transition: filter 0.5s;
 }
 
 @media (min-width: 380px) {
