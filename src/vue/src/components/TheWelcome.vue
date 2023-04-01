@@ -64,6 +64,21 @@ onMounted(async () => {
         />
       </WelcomeItem>
 
+      <WelcomeItem>
+        <template #icon>
+          <CommunityIcon />
+        </template>
+        <template #heading
+          >Sarebbe comodo un pulmino da Trento o Mezzocorona?</template
+        >
+        <Switch
+          checkboxId="c"
+          v-if="typeof guest.pulmino !== 'undefined'"
+          :initialValue="guest.pulmino"
+          @changeCheck="changeBool('pulmino', $event)"
+        />
+      </WelcomeItem>
+
       <WelcomeItem
         v-if="evento !== null && typeof evento.addio !== 'undefined'"
       >
@@ -140,7 +155,7 @@ export default {
     changeBool(field, value) {
       const { updateGuest } = useGuestStore();
       console.log("field:" + field);
-      updateGuest({ [field]: this.boolToIt(value)});
+      updateGuest({ [field]: this.boolToIt(value) });
     },
     changeNote(note) {
       const { updateGuest } = useGuestStore();
