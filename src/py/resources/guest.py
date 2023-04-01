@@ -58,9 +58,20 @@ class Guest(Resource):
     return {'guest': guest.json(exclude=Guest.exclude_on_its_own)}, 201
 
 class GuestList(Resource):
-  def get(self):
-    return {'guests': list(map(lambda x: x.json(include=Guest.include_for_others),
-                           GuestModel.get_all_guests()))
-           }
+  def get(self, id):
+    id = str(id)
+    guest = GuestModel.find_by_id(id)
+    if guest is not None:
+      group = guest.gruppo
+      json = []
+      for guest in GuestModel.get_all_guests():
+        if group == 'Torta':
+          if guest.gruppo == 'Torta':
+            json.append(guest.json(include=Guest.include_for_others))
+        else:
+          if guest.gruppo != 'Torta':
+            json.append(guest.json(include=Guest.include_for_others))
+      return {'guests': json}, 200
+    return {'message': 'User ID not found.'}, 404
 
 

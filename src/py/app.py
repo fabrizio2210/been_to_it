@@ -19,7 +19,7 @@ api = Api(app)
 
 # API
 api.add_resource(Guest,       '/api/guest/<string:id>')
-api.add_resource(GuestList,   '/api/guests')
+api.add_resource(GuestList,   '/api/guests/<string:id>')
 api.add_resource(Event,       '/api/event')
 
 # Initialise from envrironment variables

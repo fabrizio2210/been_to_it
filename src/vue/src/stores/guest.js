@@ -26,7 +26,8 @@ export const useGuestStore = defineStore({
     },
     async fetchGuests() {
       this.loading = true;
-      var url = new URL(`/api/guests`, apiUrl);
+      const id = useIdStore();
+      var url = new URL(`/api/guests/${id.id}`, apiUrl);
       try {
         var payload = await fetch(url).then((response) => response.json());
         this.guests = payload["guests"];
