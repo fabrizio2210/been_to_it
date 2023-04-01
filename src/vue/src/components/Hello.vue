@@ -94,13 +94,13 @@ p {
   font-size: 9px;
   font-family: glacial-indifference-regular;
   color: #000000;
-  transition: filter 0.5s;
+  transition: filter 0.2s;
 }
 .ft16 {
   font-size: 10px;
   font-family: glacial-indifference-bold;
   color: #000000;
-  transition: filter 0.5s;
+  transition: filter 0.2s;
 }
 
 @media (min-width: 380px) {
