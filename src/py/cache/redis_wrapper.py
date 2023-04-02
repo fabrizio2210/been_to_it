@@ -29,6 +29,11 @@ class RedisWrapper():
     slowdown()
 
   @classmethod
+  def commandToRead(cls, pipe, cell):
+    pipe.hget('write_hash', key='%s%d' % cell)
+    pipe.get('%s%d' % cell)
+
+  @classmethod
   def read(cls, cell, memoize=False):
     if memoize:
       value = cls.memoization.get(cell, None)
@@ -37,8 +42,7 @@ class RedisWrapper():
 
     logging.debug('Reading (%s,%d) from Redis' % cell)
     pipe = cls.client.pipeline()
-    pipe.hget('write_hash', key='%s%d' % cell)
-    pipe.get('%s%d' % cell)
+    cls.commandToRead(pipe, cell)
     values = pipe.execute()
     slowdown()
     if values[0] is not None:
@@ -109,7 +113,7 @@ class RedisModel():
       )
     for row in RedisModel.expand_rows(value_cells):
       fn_dict = {}
-      attrs = []
+      attrs = {} 
       offset = 0
       for col in RedisModel.expand_cols(value_cells):
         def get_fn(col=col, row=row):
@@ -125,7 +129,7 @@ class RedisModel():
         logging.debug("Set \"%s\" as attr for \"%s\"", desc.lower(), row)
         fn_dict["%s_get" % desc.lower()]=get_fn
         fn_dict["%s_set" % desc.lower()]=set_fn
-        attrs.append(desc.lower())
+        attrs[desc.lower()] = (col, row)
         offset += 1
       self.rows.append(RedisRow(fn_dict, attrs))
 
