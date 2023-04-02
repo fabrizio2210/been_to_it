@@ -3,23 +3,28 @@ import GuestItem from "./GuestItem.vue";
 import { storeToRefs } from "pinia";
 import { useGuestStore } from "../stores/guest";
 
-const { guests, loading, error, firstGuestsLoading } = storeToRefs(useGuestStore());
+const { guests, loading, error, firstGuestsLoading } = storeToRefs(
+  useGuestStore()
+);
 const { fetchGuests } = useGuestStore();
 
 fetchGuests();
 </script>
 
 <template>
-    <template v-for="guest in guests">
-      <GuestItem v-if="typeof guest.nome !== 'undefined' && guest.nome != ''">
+  <template v-for="guest in guests">
+    <GuestItem v-if="typeof guest.nome !== 'undefined' && guest.nome != ''">
       <template #heading>
-        <span class="guest-list-item" :class="[firstGuestsLoading ? 'blur' : 'noblur']">
+        <span
+          class="guest-list-item"
+          :class="[firstGuestsLoading ? 'blur' : 'noblur']"
+        >
           {{ guest.nome }}:
-          </span>
-        </template>
-        {{ guest.viene }}
-      </GuestItem>
-    </template>
+        </span>
+      </template>
+      {{ guest.viene }}
+    </GuestItem>
+  </template>
 </template>
 <script>
 export default {
@@ -56,4 +61,3 @@ export default {
   filter: blur(0px);
 }
 </style>
-

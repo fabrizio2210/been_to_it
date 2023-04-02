@@ -9,6 +9,9 @@ import EcosystemIcon from "./icons/IconEcosystem.vue";
 import CommunityIcon from "./icons/IconCommunity.vue";
 import SupportIcon from "./icons/IconSupport.vue";
 import GiftIcon from "./icons/IconGift.vue";
+import TransportIcon from "./icons/IconTransport.vue";
+import FoodIcon from "./icons/IconFood.vue";
+import PartyIcon from "./icons/IconParty.vue";
 import DressIcon from "./icons/IconDress.vue";
 import { storeToRefs } from "pinia";
 import { useGuestStore } from "../stores/guest";
@@ -51,7 +54,7 @@ onMounted(async () => {
     >
       <WelcomeItem>
         <template #icon>
-          <CommunityIcon />
+          <FoodIcon />
         </template>
         <template #heading
           >Hai delle alergie od intolleranze alimentari?</template
@@ -66,7 +69,7 @@ onMounted(async () => {
 
       <WelcomeItem>
         <template #icon>
-          <CommunityIcon />
+          <TransportIcon />
         </template>
         <template #heading
           >Sarebbe comodo un pulmino da Trento o Mezzocorona?</template
@@ -83,7 +86,7 @@ onMounted(async () => {
         v-if="evento !== null && typeof evento.addio !== 'undefined'"
       >
         <template #icon>
-          <SupportIcon />
+          <PartyIcon />
         </template>
         <template #heading
           >Vuoi partecipare all'addio nubilato/celibato?</template
