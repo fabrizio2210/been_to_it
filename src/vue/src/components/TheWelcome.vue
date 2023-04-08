@@ -113,20 +113,20 @@ onMounted(async () => {
         {{ evento.regalo }}
       </WelcomeItem>
 
-    <WelcomeItem>
-      <template #icon>
-        <EmailIcon />
-      </template>
-      <template #heading>Email</template>
-      {{ email_text }}
-      <Notes
-        notesId="email"
-        :multiline="false"
-        v-if="typeof guest.email !== 'undefined'"
-        :initialValue="guest.email"
-        @changeText="changeText('email', $event)"
-      />
-    </WelcomeItem>
+      <WelcomeItem>
+        <template #icon>
+          <EmailIcon />
+        </template>
+        <template #heading>Email</template>
+        {{ email_text }}
+        <Notes
+          notesId="email"
+          :multiline="false"
+          v-if="typeof guest.email !== 'undefined'"
+          :initialValue="guest.email"
+          @changeText="changeText('email', $event)"
+        />
+      </WelcomeItem>
     </div>
 
     <WelcomeItem>
@@ -150,7 +150,8 @@ export default {
   data() {
     return {
       note_text: "Vuoi farci sapere qualcosa?",
-      email_text: "Inserisci la tua email, ti invieremo un invito in calendario.",
+      email_text:
+        "Inserisci la tua email, ti invieremo un invito in calendario.",
       party_text: "Contatta il testimone",
     };
   },
@@ -181,7 +182,7 @@ export default {
     changeText(field, text) {
       const { updateGuest } = useGuestStore();
       console.log("field:" + field);
-      updateGuest({[field]: text });
+      updateGuest({ [field]: text });
     },
   },
 };

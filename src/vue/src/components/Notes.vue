@@ -22,9 +22,9 @@ export default {
     </label>
     <textarea
       :class="[multiline ? 'textbox' : 'input']"
-      :id="notesId" 
+      :id="notesId"
       @blur="changeText()"
-      v-model="text" 
+      v-model="text"
     />
   </div>
 </template>
