@@ -19,9 +19,7 @@ class GuestModel(RedisModel):
   @classmethod
   def find_by_id(cls, id):
     guests = GuestModel.getGuests()
-    for guest in guests.rows:
-      if guest.id == id:
-        return guest
+    return guests.rows.get(id, None)
 
   @classmethod
   def get_all_guests(cls):

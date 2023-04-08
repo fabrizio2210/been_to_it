@@ -31,7 +31,7 @@ class RedisWrapper():
   @classmethod
   def reassemblyValue(cls, values):
     if values[0] is not None:
-      logging.debug('Value "%s" read from write_hash.', value)
+      logging.debug('Value "%s" read from write_hash.', values[0])
       return values[0].decode('utf-8')
     elif values[1] is not None:
       return values[1].decode('utf-8')
@@ -126,7 +126,7 @@ class RedisRow():
 class RedisModel():
 
   def __init__(self, description_cells, value_cells):
-    self.rows = []
+    self.rows = {}
     value_columns_length = len(list(RedisModel.expand_cols(value_cells)))
     description_columns_length = len(
       list(RedisModel.expand_cols(description_cells))
@@ -136,10 +136,12 @@ class RedisModel():
         'Columns of description cells (%d) differ from columns of value cells (%d)'
         % (description_columns_length, value_columns_length)
       )
+    index = 0
     for row in RedisModel.expand_rows(value_cells):
       fn_dict = {}
       attrs = {} 
       offset = 0
+      id_key = ""
       for col in RedisModel.expand_cols(value_cells):
         def get_fn(col=col, row=row):
           return RedisWrapper.read((col, row))
@@ -155,13 +157,18 @@ class RedisModel():
         fn_dict["%s_get" % desc.lower()]=get_fn
         fn_dict["%s_set" % desc.lower()]=set_fn
         attrs[desc.lower()] = (col, row)
+        if desc.lower() == "id":
+          id_key = get_fn()
         offset += 1
-      self.rows.append(RedisRow(fn_dict, attrs))
+      if id_key == "":
+        id_key = index
+      self.rows[id_key]=RedisRow(fn_dict, attrs)
+      index += 1
 
   def __repr__(self):
     out = "Rows:\n"
     for row in self.rows:
-      out += str(row._fn_dict)
+      out += str(rows[row]._fn_dict)
     return out
   
   @classmethod
