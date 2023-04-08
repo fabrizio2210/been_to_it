@@ -29,6 +29,14 @@ class RedisWrapper():
     slowdown()
 
   @classmethod
+  def reassemblyValue(cls, values):
+    if values[0] is not None:
+      logging.debug('Value "%s" read from write_hash.', value)
+      return values[0].decode('utf-8')
+    elif values[1] is not None:
+      return values[1].decode('utf-8')
+
+  @classmethod
   def commandToRead(cls, pipe, cell):
     pipe.hget('write_hash', key='%s%d' % cell)
     pipe.get('%s%d' % cell)
@@ -45,18 +53,11 @@ class RedisWrapper():
     cls.commandToRead(pipe, cell)
     values = pipe.execute()
     slowdown()
-    if values[0] is not None:
-      value = values[0]
-      logging.debug('Value "%s" read from write_hash.', value)
-    else:
-      value = values[1]
+    value = cls.reassemblyValue(values)
 
-    if value is not None:
-      value = value.decode('utf-8')
-      if memoize:
-        cls.memoization[cell] = value
-      return value
-    return None
+    if memoize:
+      cls.memoization[cell] = value
+    return value
 
   @classmethod
   def enque_photo(cls, photo_pb):
@@ -84,9 +85,13 @@ class RedisRow():
     else:
       self.__dict__['_fn_dict'][f"{name}_set"](value)
 
-  def json(self, exclude=[], include=None):
-    json = {}
-    for attr in self._attrs:
+  def json(self, exclude=[], include=None, ppipe=None):
+    pipe = ppipe
+    if ppipe is None:
+      pipe = RedisWrapper.client.pipeline()
+
+    keys = []
+    for attr in sorted(self._attrs):
       logging.debug("attr: %s", attr)
       if attr.startswith('_'):
         continue
@@ -94,8 +99,28 @@ class RedisRow():
         continue
       if include is not None and attr not in include:
         continue
-      json[attr] = getattr(self, attr)
-    return json
+      RedisWrapper.commandToRead(pipe, self._attrs[attr])
+      keys.append(attr)
+
+    if ppipe is None:
+      values = pipe.execute()
+      slowdown()
+
+      json = {}
+      i = 0
+      for attr in sorted(self._attrs):
+        logging.debug("attr: %s", attr)
+        if attr.startswith('_'):
+          continue
+        if attr in exclude:
+          continue
+        if include is not None and attr not in include:
+          continue
+        logging.debug("Values: %s", values[i:i+2])
+        json[attr] = RedisWrapper.reassemblyValue(values[i:i+2])
+        i += 2
+      return json
+    return keys
 
 
 class RedisModel():
