@@ -3,6 +3,7 @@ export default {
   props: {
     notesId: String,
     initialValue: String,
+    multiline: Boolean,
   },
   methods: {
     changeText() {
@@ -19,7 +20,12 @@ export default {
     <label :for="notesId">
       <div></div>
     </label>
-    <textarea :id="notesId" @blur="changeText()" v-model="text" />
+    <textarea
+      :class="[multiline ? 'textbox' : 'input']"
+      :id="notesId" 
+      @blur="changeText()"
+      v-model="text" 
+    />
   </div>
 </template>
 
@@ -27,8 +33,16 @@ export default {
 textarea {
   left: 10px;
   top: 10px;
+  resize: none;
+}
+
+.input {
+  height: 25px;
+  width: 250px;
+}
+
+.textbox {
   width: calc(50vw - 20px); /* calc and viewport to the rescue */
   height: calc(50vh - 20px);
-  resize: none;
 }
 </style>

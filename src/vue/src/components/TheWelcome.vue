@@ -9,6 +9,7 @@ import EcosystemIcon from "./icons/IconEcosystem.vue";
 import CommunityIcon from "./icons/IconCommunity.vue";
 import SupportIcon from "./icons/IconSupport.vue";
 import GiftIcon from "./icons/IconGift.vue";
+import EmailIcon from "./icons/IconEmail.vue";
 import TransportIcon from "./icons/IconTransport.vue";
 import FoodIcon from "./icons/IconFood.vue";
 import PartyIcon from "./icons/IconParty.vue";
@@ -111,6 +112,21 @@ onMounted(async () => {
         <template #heading>Regalo</template>
         {{ evento.regalo }}
       </WelcomeItem>
+
+    <WelcomeItem>
+      <template #icon>
+        <EmailIcon />
+      </template>
+      <template #heading>Email</template>
+      {{ email_text }}
+      <Notes
+        notesId="email"
+        :multiline="false"
+        v-if="typeof guest.email !== 'undefined'"
+        :initialValue="guest.email"
+        @changeText="changeText('email', $event)"
+      />
+    </WelcomeItem>
     </div>
 
     <WelcomeItem>
@@ -121,9 +137,10 @@ onMounted(async () => {
       {{ note_text }}
       <Notes
         notesId="notes"
+        :multiline="true"
         v-if="typeof guest.note !== 'undefined'"
         :initialValue="guest.note"
-        @changeText="changeNote($event)"
+        @changeText="changeText('note', $event)"
       />
     </WelcomeItem>
   </template>
@@ -133,6 +150,7 @@ export default {
   data() {
     return {
       note_text: "Vuoi farci sapere qualcosa?",
+      email_text: "Inserisci la tua email, ti invieremo un invito in calendario.",
       party_text: "Contatta il testimone",
     };
   },
@@ -160,10 +178,10 @@ export default {
       console.log("field:" + field);
       updateGuest({ [field]: this.boolToIt(value) });
     },
-    changeNote(note) {
+    changeText(field, text) {
       const { updateGuest } = useGuestStore();
-      console.log(note);
-      updateGuest({ note: note });
+      console.log("field:" + field);
+      updateGuest({[field]: text });
     },
   },
 };
