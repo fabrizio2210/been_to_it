@@ -7,8 +7,8 @@ class EventModel(RedisModel):
   
   def __init__(self):
     super().__init__(
-      description_cells=(('A', 3), ('G', '3')),
-      value_cells=(('A', 4), ('G', '5'))
+      description_cells=(('A', 3), ('J', '3')),
+      value_cells=(('A', 4), ('J', '5'))
       )
 
   @classmethod
