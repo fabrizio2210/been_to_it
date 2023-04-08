@@ -42,7 +42,7 @@ textarea {
 }
 
 .textbox {
-  width: calc(50vw - 20px); /* calc and viewport to the rescue */
+  width: calc(50vw); /* calc and viewport to the rescue */
   height: calc(50vh - 20px);
 }
 </style>
