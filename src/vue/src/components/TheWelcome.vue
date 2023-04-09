@@ -188,7 +188,9 @@ export default {
 };
 </script>
 <style scoped>
-.optional-section {
-  border-left: 1px solid var(--color-border);
+@media (min-width: 1024px) {
+  .optional-section {
+    border-left: 1px solid var(--color-border);
+  }
 }
 </style>

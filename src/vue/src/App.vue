@@ -8,7 +8,9 @@ import Hello from "./components/Hello.vue";
     <Hello />
     <nav>
       <RouterLink to="/">Tu</RouterLink>
-      <RouterLink to="/guests">Vedi altri invitati</RouterLink>
+      <RouterLink to="/guests">Altri invitati</RouterLink>
+      <RouterLink to="/timeline">Timeline & Menù</RouterLink>
+      <RouterLink to="/photobook">Foto</RouterLink>
     </nav>
     <RouterView />
   </div>
@@ -41,6 +43,7 @@ nav {
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 nav a.router-link-exact-active {
