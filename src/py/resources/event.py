@@ -24,5 +24,8 @@ class Event(Resource):
       if guest:
         if guest.gruppo.lower() == "torta":
           return {'event': event.rows["1"].json()}, 200
-    return {'event': event.rows["0"].json()}, 200
+    evento = event.rows.get("0")
+    if evento is None:
+      return {}, 404
+    return {'event': evento.json()}, 200
 
