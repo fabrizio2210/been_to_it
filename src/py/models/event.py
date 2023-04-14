@@ -15,5 +15,7 @@ class EventModel(RedisModel):
   def getEvent(cls):
     if cls.event is None:
       cls.event = EventModel()
+    elif len(cls.event.rows) == 0:
+      cls.event = EventModel()
     return cls.event
 

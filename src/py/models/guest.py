@@ -14,6 +14,8 @@ class GuestModel(RedisModel):
   def getGuests(cls):
     if cls.guest is None:
       cls.guest = GuestModel()
+    elif len(cls.guest.rows) == 0:
+      cls.guest = GuestModel()
     return cls.guest
 
   @classmethod
