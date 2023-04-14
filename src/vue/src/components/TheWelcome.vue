@@ -149,7 +149,8 @@ onMounted(async () => {
 export default {
   data() {
     return {
-      note_text: "Vuoi farci sapere qualcosa? Il testo si salva appena finisci di scrivere.",
+      note_text:
+        "Vuoi farci sapere qualcosa? Il testo si salva appena finisci di scrivere.",
       email_text:
         "Inserisci la tua email, ti invieremo un invito in calendario più avanti. Il testo si salva appena finisci di scrivere.",
       party_text: "Contatta il testimone",
