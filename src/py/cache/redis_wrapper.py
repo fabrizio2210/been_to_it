@@ -40,6 +40,13 @@ class RedisWrapper():
     pipe.set('%s%d' % cell, value=value)
 
   @classmethod
+  def readCacheToWrite(cls):
+    cache_to_write = {}
+    for keyvalues in cls.client.hscan_iter('write_hash'):
+      cache_to_write[keyvalues[0].decode('utf-8')] = keyvalues[1].decode('utf-8')
+    return cache_to_write
+
+  @classmethod
   def commandToRead(cls, pipe, cell):
     pipe.hget('write_hash', key='%s%d' % cell)
     pipe.get('%s%d' % cell)
