@@ -20,10 +20,6 @@ class Cache(Resource):
                       help="User identifier."
                       )
 
-  def get(self):
-    data = Cache.parser.parse_args()
-    return {'cache': {}}, 200
-
   def post(self):
     data = Cache.parser.parse_args()
     if data['Authorization'] == os.getenv('CACHE_TOKEN'):
