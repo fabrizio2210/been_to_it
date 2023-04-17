@@ -58,13 +58,13 @@ onMounted(async () => {
           <FoodIcon />
         </template>
         <template #heading
-          >Hai delle alergie od intolleranze alimentari?</template
+          >Hai delle allergie od intolleranze alimentari?</template
         >
         <Switch
           checkboxId="b"
-          v-if="typeof guest.alergie !== 'undefined'"
-          :initialValue="guest.alergie"
-          @changeCheck="changeBool('alergie', $event)"
+          v-if="typeof guest.allergie !== 'undefined'"
+          :initialValue="guest.allergie"
+          @changeCheck="changeBool('allergie', $event)"
         />
       </WelcomeItem>
 
