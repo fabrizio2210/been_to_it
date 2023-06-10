@@ -6,8 +6,8 @@ class GuestModel(RedisModel):
 
   def __init__(self):
     super().__init__(
-      description_cells=(('A', 7), ('K', 7)),
-      value_cells=(('A', 8), ('K', 82))
+      description_cells=(('A', 7), ('M', 7)),
+      value_cells=(('A', 8), ('M', 82))
     )
 
   @classmethod
