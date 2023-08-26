@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y nginx \
     zlib1g-dev \
     && apt-get clean
 
+RUN rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
 COPY src/py/ ${APP_FOLDER}/
 RUN mkdir ${ETC_FOLDER} && chmod 755 ${ETC_FOLDER} && chown www-data ${ETC_FOLDER}
