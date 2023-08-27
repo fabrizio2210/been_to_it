@@ -53,7 +53,13 @@ onMounted(async () => {
       class="optional-section"
       v-if="typeof guest.viene !== 'undefined' && itToBool(guest.viene)"
     >
-      <WelcomeItem v-if="evento !== null && typeof evento.allergie !== 'undefined' && itToBool(evento.allergie)">
+      <WelcomeItem
+        v-if="
+          evento !== null &&
+          typeof evento.allergie !== 'undefined' &&
+          itToBool(evento.allergie)
+        "
+      >
         <template #icon>
           <FoodIcon />
         </template>
@@ -68,7 +74,13 @@ onMounted(async () => {
         />
       </WelcomeItem>
 
-      <WelcomeItem v-if="evento !== null && typeof evento.pulmino !== 'undefined' && itToBool(evento.pulmino)">
+      <WelcomeItem
+        v-if="
+          evento !== null &&
+          typeof evento.pulmino !== 'undefined' &&
+          itToBool(evento.pulmino)
+        "
+      >
         <template #icon>
           <TransportIcon />
         </template>
@@ -84,7 +96,11 @@ onMounted(async () => {
       </WelcomeItem>
 
       <WelcomeItem
-        v-if="evento !== null && typeof evento.addio !== 'undefined' && evento.addio != ''"
+        v-if="
+          evento !== null &&
+          typeof evento.addio !== 'undefined' &&
+          evento.addio != ''
+        "
       >
         <template #icon>
           <PartyIcon />
@@ -169,7 +185,7 @@ export default {
       }
     },
     itToBool(str) {
-      str = str.toLowerCase()
+      str = str.toLowerCase();
       if (str == "sì" || str == "si" || str == "true") {
         return true;
       } else {
