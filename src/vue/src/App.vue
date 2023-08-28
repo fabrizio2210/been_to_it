@@ -13,8 +13,20 @@ const { evento } = storeToRefs(useEventStore());
     <nav>
       <RouterLink to="/">Tu</RouterLink>
       <RouterLink to="/guests">Altri invitati</RouterLink>
-      <RouterLink v-if="typeof evento !== 'undefined' && evento !== null && evento.id == 0" to="/menu">Menù aperitivo cena</RouterLink>
-      <RouterLink v-if="typeof evento !== 'undefined' && evento !== null && evento.id == 0" to="/timeline">Timeline</RouterLink>
+      <RouterLink
+        v-if="
+          typeof evento !== 'undefined' && evento !== null && evento.id == 0
+        "
+        to="/menu"
+        >Menù aperitivo cena</RouterLink
+      >
+      <RouterLink
+        v-if="
+          typeof evento !== 'undefined' && evento !== null && evento.id == 0
+        "
+        to="/timeline"
+        >Timeline</RouterLink
+      >
       <RouterLink to="/photobook">Foto</RouterLink>
     </nav>
     <RouterView />
