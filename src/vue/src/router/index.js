@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import("../views/GuestsView.vue"),
     },
     {
+      path: "/menu",
+      name: "menu",
+      component: () => import("../views/MenuView.vue"),
+    },
+    {
       path: "/timeline",
       name: "timeline",
       component: () => import("../views/TimelineView.vue"),

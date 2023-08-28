@@ -1,6 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Hello from "./components/Hello.vue";
+
+import { useEventStore } from "./stores/event";
+import { storeToRefs } from "pinia";
+const { evento } = storeToRefs(useEventStore());
 </script>
 
 <template>
@@ -9,7 +13,8 @@ import Hello from "./components/Hello.vue";
     <nav>
       <RouterLink to="/">Tu</RouterLink>
       <RouterLink to="/guests">Altri invitati</RouterLink>
-      <RouterLink to="/timeline">Timeline & Menù</RouterLink>
+      <RouterLink v-if="typeof evento !== 'undefined' && evento !== null && evento.id == 0" to="/menu">Menù aperitivo cena</RouterLink>
+      <RouterLink v-if="typeof evento !== 'undefined' && evento !== null && evento.id == 0" to="/timeline">Timeline</RouterLink>
       <RouterLink to="/photobook">Foto</RouterLink>
     </nav>
     <RouterView />
