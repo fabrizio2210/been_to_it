@@ -72,12 +72,13 @@ class GuestList(Resource):
       json = []
       guests = GuestModel.get_all_guests()
       for guest in guests:
-        if group == 'Torta':
-          if guests[guest].gruppo == 'Torta':
-            json.append(guests[guest].json(include=Guest.include_for_others))
-        else:
-          if guests[guest].gruppo != 'Torta':
-            json.append(guests[guest].json(include=Guest.include_for_others))
+        if guests[guest].viene == "sì":
+          if group == 'Torta':
+            if guests[guest].gruppo == 'Torta':
+              json.append(guests[guest].json(include=Guest.include_for_others))
+          else:
+            if guests[guest].gruppo != 'Torta':
+              json.append(guests[guest].json(include=Guest.include_for_others))
       return {'guests': json}, 200
     return {'message': 'User ID not found.'}, 404
 

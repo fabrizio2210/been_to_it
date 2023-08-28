@@ -19,10 +19,9 @@ fetchGuests();
           class="guest-list-item"
           :class="[firstGuestsLoading ? 'blur' : 'noblur']"
         >
-          {{ guest.nome }}:
+          {{ guest.nome }}
         </span>
       </template>
-      {{ guest.viene }}
     </GuestItem>
   </template>
 </template>
