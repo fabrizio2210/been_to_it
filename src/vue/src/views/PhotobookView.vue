@@ -3,13 +3,14 @@ import { useIdStore } from "../stores/id";
 import { storeToRefs } from "pinia";
 
 const { id } = storeToRefs(useIdStore());
-
 </script>
 
 <template>
   <div class="photobook">
-    <h2>Carica e vedi le foto durante il matrimonio su <a v-bind:href="url" >
-    i.ve.been.to.it</a></h2>
+    <h2>
+      Carica e vedi le foto durante il matrimonio su
+      <a v-bind:href="url"> i.ve.been.to.it</a>
+    </h2>
   </div>
 </template>
 
@@ -17,16 +18,15 @@ const { id } = storeToRefs(useIdStore());
 export default {
   computed: {
     url() {
-      const {id} = storeToRefs(useIdStore());
+      const { id } = storeToRefs(useIdStore());
       var url = "http://i.ve.been.to.it";
-      if (typeof id !== 'undefined' && id.value !== null) {
+      if (typeof id !== "undefined" && id.value !== null) {
         url = url + "?id=" + id.value;
       }
       return url;
-    }
-  }
-}
-
+    },
+  },
+};
 </script>
 
 <style>
