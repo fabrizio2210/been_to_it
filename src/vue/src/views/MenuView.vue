@@ -28,7 +28,7 @@ const { evento } = storeToRefs(useEventStore());
       id="menu-cena"
       class="poster"
       src="@/assets/cena_menu.png"
-      alt="BARBEQUE ALLA PINZONERKELLER, Sparerips di maiale, Coscette di pollo marinate al curry e thimo, Salsicce fatte in casa, Roastbeef grigliato tutto d'un pezzo e poi tranciato davanti agli ospiti, Formaggio alla griglia (mini Tomini), Verdure mediterranee grigliate, patate al rosmarino, Polenta cremosa da paiuolo, salsettine fatte in casa (barbeque, salsa verde, maionaise al rafano,…), Bevande per la cena, Vino bianco Sauvignon Fallwind cantina Appiano, Vino rosso Ripasso Valpolicella, Birra alla spina, Acqua, Succhi e softdrinks, Un giro di caffè ed amari/grappe a fine pasto"
+      alt="BARBEQUE ALLA PINZONERKELLER, Sparerips di maiale, Coscette di pollo marinate al curry e thimo, Salsicce fatte in casa, Roastbeef grigliato tutto d'un pezzo e poi tranciato davanti agli ospiti, Formaggio alla griglia (mini Tomini), Verdure mediterranee grigliate, patate al rosmarino, Polenta cremosa da paiuolo, salsettine fatte in casa (barbeque, salsa verde, maionaise al rafano,…), Bevande per la cena, Vino bianco Sauvignon, Vino rosso Ripasso Valpolicella, Birra alla spina, Acqua, Succhi e softdrinks, Un giro di caffè ed amari/grappe a fine pasto"
     />
     <img
       v-if="
