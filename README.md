@@ -46,7 +46,14 @@ function syncCache(url, secret) {
 ## Execution
 
 To bring up the web application you need `docker` with  `docker-compose` plugin.
-You can find an instllation guide [here](https://docs.docker.com/engine/install/debian/#install-using-the-repository).
+You can find an installation guide [here](https://docs.docker.com/engine/install/debian/#install-using-the-repository).
+
+An env file is needed to populate some variable in the stack file. 
+Create a file in `~/.docker/been_to_it-dev.env` with this structure:
+
+```
+CACHE_TOKEN=<same secret used in the Apps Scripts>
+```
 
 To run a developping version of the web server run:
 
