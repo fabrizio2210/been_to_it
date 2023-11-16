@@ -61,7 +61,7 @@ To run a developping version of the web server run:
 $ docker/lib/createLocalDevStack.sh
 ```
 
-It will build and bring ups all the jobs. The code will automatically be rebuilt if a change is detected.
+It will build and bring up all the jobs. The code will automatically be rebuilt if a change is detected.
 
 If you want to run localhost version of the webapplication just run:
 
