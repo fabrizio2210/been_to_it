@@ -45,7 +45,8 @@ function syncCache(url, secret) {
 
 ## Execution
 
-To bring up the web application you need `docker` and `docker-compose`.
+To bring up the web application you need `docker` with  `docker-compose` plugin.
+You can find an instllation guide [here](https://docs.docker.com/engine/install/debian/#install-using-the-repository).
 
 To run a developping version of the web server run:
 
