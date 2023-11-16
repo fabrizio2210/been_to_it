@@ -15,7 +15,7 @@ To sync the content, you need to set up a script in your Google Spreadsheet.
 The script POST data in the web application.
 
 ```javascript
-// url is the URL of the web application to sync.
+// url is the URL of the web application to sync. Something like https://HOSTNAME/api/cache.
 // secret is an arbitrary password shared between the web application and this script to avoid bad actors uploading the data.
 function syncCache(url, secret) {
   var spreadsheet = SpreadsheetApp.getActiveSheet();
@@ -40,4 +40,23 @@ function syncCache(url, secret) {
     spreadsheet.getRange(cell).setValue(value);
   }
 }
+```
+
+
+## Execution
+
+To bring up the web application you need `docker` and `docker-compose`.
+
+To run a developping version of the web server run:
+
+```
+$ docker/lib/createLocalDevStack.sh
+```
+
+It will build and bring ups all the jobs. The code will automatically be rebuilt if a change is detected.
+
+If you want to run localhost version of the webapplication just run:
+
+```
+$ docker/lib/createLocalStack.sh
 ```

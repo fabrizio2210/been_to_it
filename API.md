@@ -33,3 +33,8 @@ Update guest details
 
 ### GET
 Retrieve all the guests name.
+
+## /api/cache
+
+### POST
+Sync data from the Google spreadsheet.
