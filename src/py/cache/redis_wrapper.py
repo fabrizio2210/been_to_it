@@ -22,8 +22,8 @@ class RedisWrapper():
 
   @classmethod
   def write(cls, cell, value):
-    logging.debug('Writing (%s,%d) to Redis' % cell)
-    cls.client.hset('write_hash', key='%s%d' % cell, value=value)
+    logging.debug('Writing (%s, %s,%d) to Redis' % cell)
+    cls.client.hset('write_hash', key='%s!%s%d' % cell, value=value)
     slowdown()
 
   @classmethod
@@ -36,8 +36,8 @@ class RedisWrapper():
 
   @classmethod
   def commandToWriteCache(cls, pipe, cell, value):
-    logging.debug('Writing (%s,%d) to Redis cache' % cell)
-    pipe.set('%s%d' % cell, value=value)
+    logging.debug('Writing (%s, %s,%d) to Redis cache' % cell)
+    pipe.set('%s!%s%d' % cell, value=value)
 
   @classmethod
   def readCacheToWrite(cls):
@@ -48,8 +48,8 @@ class RedisWrapper():
 
   @classmethod
   def commandToRead(cls, pipe, cell):
-    pipe.hget('write_hash', key='%s%d' % cell)
-    pipe.get('%s%d' % cell)
+    pipe.hget('write_hash', key='%s!%s%d' % cell)
+    pipe.get('%s!%s%d' % cell)
 
   @classmethod
   def read(cls, cell, memoize=False):
@@ -58,7 +58,7 @@ class RedisWrapper():
       if value is not None:
         return value
 
-    logging.debug('Reading (%s,%d) from Redis' % cell)
+    logging.debug('Reading (%s, %s,%d) from Redis' % cell)
     pipe = cls.client.pipeline()
     cls.commandToRead(pipe, cell)
     values = pipe.execute()
@@ -135,7 +135,7 @@ class RedisRow():
 
 class RedisModel():
 
-  def __init__(self, description_cells, value_cells):
+  def __init__(self, tab, description_cells, value_cells):
     self.rows = {}
     value_columns_length = len(list(RedisModel.expand_cols(value_cells)))
     description_columns_length = len(
@@ -153,21 +153,21 @@ class RedisModel():
       offset = 0
       id_key = ""
       for col in RedisModel.expand_cols(value_cells):
-        def get_fn(col=col, row=row):
-          return RedisWrapper.read((col, row))
+        def get_fn(tab=tab, col=col, row=row):
+          return RedisWrapper.read((tab, col, row))
 
-        def set_fn(value, col=col, row=row):
-          RedisWrapper.write((col, row), value)
+        def set_fn(value, tab=tab, col=col, row=row):
+          RedisWrapper.write((tab, col, row), value)
 
         desc = RedisWrapper.read(
-            (chr(ord(description_cells[0][0]) + offset), description_cells[0][1]),
+            (tab, chr(ord(description_cells[0][0]) + offset), description_cells[0][1]),
             memoize=True
           ) 
         if desc is not None:
           logging.debug("Set \"%s\" as attr for \"%s\"", desc.lower(), row)
           fn_dict["%s_get" % desc.lower()]=get_fn
           fn_dict["%s_set" % desc.lower()]=set_fn
-          attrs[desc.lower()] = (col, row)
+          attrs[desc.lower()] = (tab, col, row)
           if desc.lower() == "id":
             id_key = get_fn()
         offset += 1
@@ -196,4 +196,5 @@ class RedisModel():
     end_row = cells_range[-1][1]
     for row in range(start_row, int(end_row)+1):
       yield row 
+
 

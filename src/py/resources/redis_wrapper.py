@@ -25,20 +25,21 @@ class Cache(Resource):
     if data['Authorization'] == os.getenv('CACHE_TOKEN'):
       values = json.loads(data['values'])
       pipe = RedisWrapper.client.pipeline()
-      r_index = 1
-      for row in values:
-        for col in range(15):
-          if col < len(row):
-            RedisWrapper.commandToWriteCache(cell=(chr(ord('A')+col), r_index),
-                                             pipe=pipe,
-                                             value=row[col])
-          else:
-            RedisWrapper.commandToWriteCache(cell=(chr(ord('A')+col), r_index), 
-                                             pipe=pipe,
-                                             value=None)
-        r_index += 1
-      pipe.execute()
-      slowdown()
+      for tab in values.keys():
+        r_index = 1
+        for row in values[tab]:
+          for col in range(15):
+            if col < len(row):
+              RedisWrapper.commandToWriteCache(cell=(tab, chr(ord('A')+col), r_index),
+                                               pipe=pipe,
+                                               value=row[col])
+            else:
+              RedisWrapper.commandToWriteCache(cell=(tab, chr(ord('A')+col), r_index), 
+                                               pipe=pipe,
+                                               value=None)
+          r_index += 1
+        pipe.execute()
+        slowdown()
 
       return {'cache': RedisWrapper.readCacheToWrite()}, 200
     else:
