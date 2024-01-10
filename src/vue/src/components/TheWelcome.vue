@@ -111,7 +111,13 @@ onMounted(async () => {
         {{ evento.addio }}
       </WelcomeItem>
 
-      <WelcomeItem>
+      <WelcomeItem
+        v-if="
+          evento !== null &&
+          typeof evento.dresscode !== 'undefined' &&
+          evento.dresscode != ''
+        "
+      >
         <template #icon>
           <DressIcon />
         </template>
