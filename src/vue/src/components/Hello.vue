@@ -25,7 +25,7 @@ onMounted(async () => {
   <div id="invito">
     <img
       id="bg_img"
-      src="@/assets/invito_settembre_bg.jpg"
+      src="@/assets/invito_giugno_bg.jpg"
       alt="background image"
     />
     <p
