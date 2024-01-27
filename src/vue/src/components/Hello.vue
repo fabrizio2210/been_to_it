@@ -39,7 +39,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par2"
-      style="top: 75%; left: 52.5%"
+      style="top: 73%; left: 48.5%"
       class="ft11"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par2"
@@ -47,7 +47,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par3"
-      style="top: 79.5%; left: 58.5%"
+      style="top: 56.0%; left: 75.6%"
       class="ft13"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par3"
@@ -103,10 +103,10 @@ p {
   transition: filter 0.2s;
 }
 .ft13 {
-  font-size: 3.3vw;
+  font-size: 3.4vw;
   font-family: eyesome-script;
   color: #535959;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   transition: filter 0.2s;
 }
 .ft16 {
@@ -124,7 +124,7 @@ p {
     font-size: 33px;
   }
   .ft13 {
-    font-size: 34px;
+    font-size: 36px;
   }
   .ft16 {
     font-size: 34px;
