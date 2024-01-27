@@ -31,7 +31,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       id="par1"
-      style="top: 52%; left: 50%"
+      style="top: 65%; left: 51.5%"
       class="ft16"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par1"
@@ -39,7 +39,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par2"
-      style="top: 66%; left: 64%"
+      style="top: 75%; left: 52.5%"
       class="ft11"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par2"
@@ -48,7 +48,7 @@ onMounted(async () => {
       v-if="evento"
       d="par3"
       style="top: 79.5%; left: 58.5%"
-      class="ft11"
+      class="ft13"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par3"
     />
@@ -56,6 +56,11 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+@font-face {
+  font-family: "eyesome-script";
+  src: local("eyesome-script"),
+    url(@/assets/eyesome-script.otf) format("opentype");
+}
 @font-face {
   font-family: "glacial-indifference-regular";
   src: local("glacial-indifference-regular"),
@@ -91,80 +96,35 @@ p {
   line-height: 1.15;
 }
 .ft11 {
-  font-size: 9px;
+  font-size: 3.2vw;
   font-family: glacial-indifference-regular;
-  color: #000000;
+  color: #535959;
+  letter-spacing: 0.05em;
+  transition: filter 0.2s;
+}
+.ft13 {
+  font-size: 3.3vw;
+  font-family: eyesome-script;
+  color: #535959;
+  letter-spacing: 0.05em;
   transition: filter 0.2s;
 }
 .ft16 {
-  font-size: 10px;
-  font-family: glacial-indifference-bold;
-  color: #000000;
+  font-size: 3.3vw;
+  font-family: glacial-indifference-regular;
+  color: #535959;
+  letter-spacing: 0.05em;
   transition: filter 0.2s;
-}
-
-@media (min-width: 380px) {
-  .ft11 {
-    font-size: 9.5px;
-  }
-  .ft16 {
-    font-size: 11px;
-  }
-}
-@media (min-width: 400px) {
-  .ft11 {
-    font-size: 10px;
-  }
-  .ft16 {
-    font-size: 12px;
-  }
-}
-@media (min-width: 500px) {
-  .ft11 {
-    font-size: 12px;
-  }
-  .ft16 {
-    font-size: 14px;
-  }
-}
-@media (min-width: 595px) {
-  .ft11 {
-    font-size: 15px;
-  }
-  .ft16 {
-    font-size: 20px;
-  }
-}
-@media (min-width: 760px) {
-  .ft11 {
-    font-size: 20px;
-  }
-  .ft16 {
-    font-size: 25px;
-  }
-}
-@media (min-width: 830px) {
-  .ft11 {
-    font-size: 22px;
-  }
-  .ft16 {
-    font-size: 27px;
-  }
-}
-@media (min-width: 915px) {
-  .ft11 {
-    font-size: 25px;
-  }
-  .ft16 {
-    font-size: 30px;
-  }
 }
 @media (min-width: 1024px) {
   #invito {
     width: 1024px;
   }
   .ft11 {
-    font-size: 30px;
+    font-size: 33px;
+  }
+  .ft13 {
+    font-size: 34px;
   }
   .ft16 {
     font-size: 34px;

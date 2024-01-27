@@ -64,7 +64,7 @@ onMounted(async () => {
           <FoodIcon />
         </template>
         <template #heading
-          >Hai delle allergie od intolleranze alimentari?</template
+          >Hai delle allergie o intolleranze alimentari?</template
         >
         <Switch
           checkboxId="b"
