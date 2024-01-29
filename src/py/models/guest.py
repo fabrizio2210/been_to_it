@@ -8,7 +8,7 @@ class GuestModel(RedisModel):
     super().__init__(
       tab='Invitati',
       description_cells=(('A', 3), ('L', 3)),
-      value_cells=(('A', 4), ('L', 82))
+      value_cells=(('A', 4), ('L', 120))
     )
 
   @classmethod
