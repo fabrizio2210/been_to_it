@@ -179,9 +179,6 @@ export default {
     };
   },
   computed: {},
-  created() {
-    const guest_id = this.$route.query.id;
-  },
   methods: {
     boolToIt(bool) {
       if (bool) {
