@@ -47,7 +47,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par3"
-      style="top: 56.0%; left: 75.6%"
+      style="top: 56%; left: 75.6%"
       class="ft13"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par3"
