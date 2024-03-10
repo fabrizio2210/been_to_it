@@ -17,6 +17,9 @@ onMounted(async () => {
   if (typeof route.query.id !== "undefined") {
     setId(route.query.id);
   }
+  if (typeof route.params.id !== "undefined") {
+    setId(route.params.id);
+  }
   fetchEvent();
 });
 </script>
