@@ -36,7 +36,9 @@ class RedisWrapper():
 
   @classmethod
   def commandToWriteCache(cls, pipe, cell, value):
-    logging.debug('Writing (%s, %s,%d) to Redis cache' % cell)
+    if value != "" and value != None:
+      logging.debug('Writing (%s!%s%d) to Redis cache' % cell)
+      logging.debug(value)
     pipe.set('%s!%s%d' % cell, value=value)
 
   @classmethod
