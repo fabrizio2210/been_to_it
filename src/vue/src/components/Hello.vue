@@ -71,7 +71,7 @@ onMounted(async () => {
 }
 @font-face {
   font-family: "glacial-indifference-bold";
-  src: local("glacial-indifference-regular"),
+  src: local("glacial-indifference-bold"),
     url(@/assets/GlacialIndifference-Bold.ttf) format("truetype");
 }
 
