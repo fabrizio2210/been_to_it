@@ -25,21 +25,6 @@ export default {
 };
 </script>
 <style>
-.title {
-  color: #535959;
-  text-align: center;
-  padding-top: 20px;
-  font-family: glacial-indifference-bold;
-}
-.item {
-  color: #535959;
-  text-align: center;
-  font-family: glacial-indifference-regular;
-}
-ul {
-  padding-inline-start: 0; 
-  list-style-type: none;
-}
 .poster {
   position: relative;
   width: 100%;
