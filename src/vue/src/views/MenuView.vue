@@ -25,12 +25,14 @@ export default {
 };
 </script>
 <style>
-h4 {
+.title {
+  color: #535959;
   text-align: center;
   padding-top: 20px;
   font-family: glacial-indifference-bold;
 }
-li {
+.item {
+  color: #535959;
   text-align: center;
   font-family: glacial-indifference-regular;
 }
