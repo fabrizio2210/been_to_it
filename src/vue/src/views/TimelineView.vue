@@ -6,7 +6,7 @@ const { evento } = storeToRefs(useEventStore());
 
 <template>
   <div class="timeline">
-    <h3>La timeline verrà mostrata qui.</h3>
+    <div v-if="evento.timeline !==''" v-html="evento.timeline"></div>
   </div>
 </template>
 

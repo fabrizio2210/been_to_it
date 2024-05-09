@@ -22,7 +22,9 @@ const { evento } = storeToRefs(useEventStore());
       >
       <RouterLink
         v-if="
-          typeof evento !== 'undefined' && evento !== null && evento.id == 0
+          typeof evento !== 'undefined' &&
+          evento !== null &&
+          evento.timeline !== ''
         "
         to="/timeline"
         >Timeline</RouterLink
