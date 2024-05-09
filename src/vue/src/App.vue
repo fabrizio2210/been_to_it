@@ -18,7 +18,7 @@ const { evento } = storeToRefs(useEventStore());
           typeof evento !== 'undefined' && evento !== null && evento.id == 0
         "
         to="/menu"
-        >Menù aperitivo cena</RouterLink
+        >Menù</RouterLink
       >
       <RouterLink
         v-if="
