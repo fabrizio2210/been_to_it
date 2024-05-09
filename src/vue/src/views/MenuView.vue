@@ -6,7 +6,6 @@ const { evento } = storeToRefs(useEventStore());
 
 <template>
   <div class="menu">
-    <h3 v-if="evento.menu ==''" >Il menù verrà mostrato qui</h3>
     <div v-if="evento.menu !==''" v-html="evento.menu">
     </div>
   </div>

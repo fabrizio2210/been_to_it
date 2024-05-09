@@ -15,7 +15,7 @@ const { evento } = storeToRefs(useEventStore());
       <RouterLink to="/guests">Altri invitati</RouterLink>
       <RouterLink
         v-if="
-          typeof evento !== 'undefined' && evento !== null && evento.id == 0
+          typeof evento !== 'undefined' && evento !== null && evento.menu !== ''
         "
         to="/menu"
         >Menù</RouterLink
