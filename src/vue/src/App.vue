@@ -27,7 +27,7 @@ const { evento } = storeToRefs(useEventStore());
           evento.timeline !== ''
         "
         to="/timeline"
-        >Timeline</RouterLink
+        >Programma</RouterLink
       >
       <RouterLink to="/photobook">Foto</RouterLink>
     </nav>
