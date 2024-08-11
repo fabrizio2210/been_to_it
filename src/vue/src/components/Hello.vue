@@ -26,11 +26,7 @@ onMounted(async () => {
 
 <template>
   <div id="invito">
-    <img
-      id="bg_img"
-      src="/resources/invito_bg.jpg"
-      alt="background image"
-    />
+    <img id="bg_img" src="/resources/invito_bg.jpg" alt="background image" />
     <p
       v-if="evento"
       id="par1"
