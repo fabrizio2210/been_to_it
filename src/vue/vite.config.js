@@ -5,14 +5,20 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build {
-    rolloupOptions: {
+  build: {
+    rollupOptions: {
       external: [
-        '/resources/invito_bg.jpg'
+        fileURLToPath(new URL('/resources/invito_bg.jpg', import.meta.url)),
       ]
     }
-  }
-  plugins: [vue()],
+  },
+  plugins: [vue({
+    template: {
+      transformAssetUrls: {
+        includeAbsolute: false
+      }
+    }
+  })],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
