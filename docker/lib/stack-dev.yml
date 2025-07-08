@@ -96,6 +96,21 @@ services:
     networks:
       - backends
 
+  webstorage:
+    image: fabrizio2210/webstorage-api
+    labels:
+      traefik.port: 80
+      traefik.enable: "true"
+      traefik.been_to_it_webstorage.rule: "PathPrefix(`/resources`)"
+      traefik.http.services.been_to_it_webstorage-service.loadbalancer.server.port: 5000
+      traefik.http.routers.been_to_it_webstorage.rule: "PathPrefix(`/resources`)"
+    environment:
+      REDIS_HOST: redis
+      STORAGE_PATH: "/resources/"
+      API_KEY: ${RESOURCES_API_KEY}
+    networks:
+      - backends
+
 networks:
   backends:
     driver: overlay

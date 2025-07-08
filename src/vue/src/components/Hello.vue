@@ -30,7 +30,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       id="par1"
-      style="top: 65%; left: 50%; transform: translateX(-50%, 0%);"
+      style="top: 65%; left: 50%; transform: translateX(-50%, 0%)"
       class="ft16"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par1"
@@ -38,7 +38,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par2"
-      style="top: 73%; left: 50%; transform: translate(-50%, 0%);"
+      style="top: 73%; left: 50%; transform: translate(-50%, 0%)"
       class="ft11"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par2"
@@ -46,7 +46,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par3"
-      style="top: 56%; left: 50%; transform: translateX(-50%, 0%);"
+      style="top: 56%; left: 50%; transform: translateX(-50%, 0%)"
       class="ft13"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par3"
