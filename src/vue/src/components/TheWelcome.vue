@@ -7,7 +7,7 @@ import DocumentationIcon from "./icons/IconDocumentation.vue";
 import ToolingIcon from "./icons/IconTooling.vue";
 import EcosystemIcon from "./icons/IconEcosystem.vue";
 import CommunityIcon from "./icons/IconCommunity.vue";
-import SupportIcon from "./icons/IconSupport.vue";
+import PlaceIcon from "./icons/IconPlace.vue";
 import GiftIcon from "./icons/IconGift.vue";
 import EmailIcon from "./icons/IconEmail.vue";
 import TransportIcon from "./icons/IconTransport.vue";
@@ -72,6 +72,20 @@ onMounted(async () => {
           :initialValue="guest.allergie"
           @changeCheck="changeBool('allergie', $event)"
         />
+      </WelcomeItem>
+
+      <WelcomeItem
+        v-if="
+          evento !== null &&
+          typeof evento.indirizzo !== 'undefined' &&
+          evento.indirizzo != ''
+        "
+      >
+        <template #icon>
+          <PlaceIcon />
+        </template>
+        <template #heading>Indirizzo</template>
+        {{ evento.indirizzo }}
       </WelcomeItem>
 
       <WelcomeItem
