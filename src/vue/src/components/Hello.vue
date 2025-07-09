@@ -46,7 +46,7 @@ onMounted(async () => {
     <p
       v-if="evento"
       d="par3"
-      style="top: 56%; left: 50%; transform: translateX(-50%, 0%)"
+      style="top: 80%; left: 50%; transform: translate(-50%, 0%)"
       class="ft13"
       :class="[loading ? 'blur' : 'noblur']"
       v-html="evento.descrizione_par3"
@@ -107,7 +107,7 @@ p {
   transition: filter 0.2s;
 }
 .ft13 {
-  font-size: 3.4vw;
+  font-size: 4.4vw;
   font-family: eyesome-script;
   color: #535959;
   letter-spacing: 0.06em;
@@ -128,7 +128,7 @@ p {
     font-size: 33px;
   }
   .ft13 {
-    font-size: 36px;
+    font-size: 50px;
   }
   .ft16 {
     font-size: 70px;
