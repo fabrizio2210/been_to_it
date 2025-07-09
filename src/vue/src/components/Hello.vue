@@ -70,6 +70,11 @@ onMounted(async () => {
   src: local("glacial-indifference-bold"),
     url(@/assets/GlacialIndifference-Bold.ttf) format("truetype");
 }
+@font-face {
+  font-family: "great-vibes-regular";
+  src: local("great-vibes-regular"),
+    url(@/assets/GreatVibes-Regular.ttf) format("truetype");
+}
 
 .blur {
   filter: blur(9px);
@@ -96,7 +101,7 @@ p {
 }
 .ft11 {
   font-size: 3.2vw;
-  font-family: glacial-indifference-regular;
+  font-family: great-vibes-regular;
   color: #535959;
   letter-spacing: 0.05em;
   transition: filter 0.2s;
@@ -110,7 +115,7 @@ p {
 }
 .ft16 {
   font-size: 3.3vw;
-  font-family: glacial-indifference-regular;
+  font-family: great-vibes-regular;
   color: #535959;
   letter-spacing: 0.05em;
   transition: filter 0.2s;
